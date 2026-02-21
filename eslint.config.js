@@ -2,7 +2,6 @@
 
 const eslint = require('@eslint/js')
 const pluginStylistic = require('@stylistic/eslint-plugin')
-const parserTs = require('@typescript-eslint/parser')
 const pluginImport = require('eslint-plugin-import')
 const jsdoc = require('eslint-plugin-jsdoc')
 const perfectionist = require('eslint-plugin-perfectionist')
@@ -32,7 +31,7 @@ module.exports = tsEslint.config(
 				module: 'readonly',
 				require: 'readonly',
 			},
-			parser: parserTs,
+			parser: tsEslint.parser,
 			parserOptions: {
 				project,
 				sourceType: 'unambiguous',
@@ -59,7 +58,7 @@ module.exports = tsEslint.config(
 		// React rules temporarily disabled due to plugin compatibility
 		files: ['**/*.tsx'],
 		languageOptions: {
-			parser: parserTs,
+			parser: tsEslint.parser,
 			parserOptions: {
 				project,
 				sourceType: 'unambiguous',

@@ -66,8 +66,8 @@ const prettier = {
 		error,
 		{
 			arrowParens: always,
+			bracketSameLine: false,
 			bracketSpacing: true,
-			jsxBracketSameLine: false,
 			jsxSingleQuote: false,
 			printWidth,
 			quoteProps: 'as-needed',
