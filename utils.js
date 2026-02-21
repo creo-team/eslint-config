@@ -37,7 +37,7 @@ function getTsConfigFile(
 		debug(`Checking if [${targetPath}] exists...`)
 
 		if (existsSync(targetPath)) {
-			console.log(`[Eslint] Found [${targetFile}] at [${targetPath}]`)
+			debug(`Found [${targetFile}] at [${targetPath}]`)
 
 			return targetPath
 		}
