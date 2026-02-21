@@ -3,6 +3,7 @@
 # dependencies
 /node_modules
 examples/monorepo/node_modules
+examples/rule-overrides/*/node_modules
 /.pnp
 .pnp.js
 

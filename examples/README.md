@@ -23,6 +23,17 @@ npm run lint
 
 **Validation:** Run `npm run lint` — should pass with zero errors.
 
+## Rule overrides
+
+**Path:** `rule-overrides/`
+
+Examples of customizing rules:
+
+- **naming-convention/** — allow UPPER_SNAKE for constants
+- **kebab-files/** — enforce kebab-case filenames (uses eslint-plugin-unicorn)
+
+See [rule-overrides/README.md](./rule-overrides/README.md).
+
 ## Source examples
 
 - `api-route.ts` — API route style

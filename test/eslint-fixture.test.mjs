@@ -52,4 +52,33 @@ describe('eslint config', () => {
 		const errors = results.flatMap((r) => r.messages.filter((m) => m.severity === 2))
 		expect(errors).toHaveLength(0)
 	})
+
+	it('lints examples/rule-overrides/naming-convention with UPPER_SNAKE override and zero errors', async () => {
+		const repoRoot = path.resolve(__dirname, '..')
+		const { createConfig } = require(path.join(repoRoot, 'eslint.config.js'))
+		const base = createConfig({ ignores: ['node_modules/**'] })
+		const namingOverride = {
+			files: ['**/*.ts', '**/*.tsx'],
+			rules: {
+				'@typescript-eslint/naming-convention': [
+					'error',
+					{ format: ['camelCase'], selector: 'default' },
+					{ format: ['camelCase', 'PascalCase'], selector: 'import' },
+					{ format: ['camelCase', 'PascalCase', 'UPPER_CASE'], selector: 'variable' },
+					{ format: ['PascalCase'], selector: 'typeLike' },
+					{ format: ['PascalCase'], selector: 'enumMember' },
+				],
+			},
+		}
+		const config = [...base, namingOverride]
+		const exampleDir = path.resolve(repoRoot, 'examples', 'rule-overrides', 'naming-convention')
+		const eslint = new ESLint({
+			cwd: exampleDir,
+			overrideConfig: config,
+			overrideConfigFile: true,
+		})
+		const results = await eslint.lintFiles(['constants.ts'])
+		const errors = results.flatMap((r) => r.messages.filter((m) => m.severity === 2))
+		expect(errors).toHaveLength(0)
+	})
 })

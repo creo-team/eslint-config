@@ -1,0 +1,13 @@
+{
+  "name": "example-naming-convention",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@creo-team/eslint-config": "^2.4.1",
+    "eslint": "^9.39.3"
+  }
+}

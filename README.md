@@ -77,7 +77,7 @@ module.exports = createConfig({
     "fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@creo-team/eslint-config": "^2.3.9",
+    "@creo-team/eslint-config": "^2.4.1",
     "eslint": "^9.39.3"
   }
 }
@@ -121,6 +121,76 @@ Spread and override:
 const base = require('@creo-team/eslint-config')
 module.exports = [...base, { rules: { 'no-console': 'warn' } }]
 ```
+
+### Customizing rules
+
+Override any rule by spreading the base config and adding your own. Common customizations:
+
+**1. Naming convention — allow UPPER_SNAKE for constants**
+
+Default: `camelCase` for variables, `PascalCase` for types. To allow `UPPER_SNAKE` for constants:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+
+const base = createConfig()
+
+module.exports = [
+  ...base,
+  {
+    files: ['**/*.ts', '**/*.tsx'],
+    rules: {
+      '@typescript-eslint/naming-convention': [
+        'error',
+        { format: ['camelCase'], selector: 'default' },
+        { format: ['camelCase', 'PascalCase'], selector: 'import' },
+        { format: ['camelCase', 'PascalCase', 'UPPER_CASE'], selector: 'variable' },
+        { format: ['PascalCase'], selector: 'typeLike' },
+        { format: ['PascalCase'], selector: 'enumMember' },
+      ],
+    },
+  },
+]
+```
+
+**2. File naming — enforce kebab-case for `.ts` / `.tsx` files**
+
+Install [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-unicorn), then add:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+const unicorn = require('eslint-plugin-unicorn')
+
+const base = createConfig()
+
+module.exports = [
+  ...base,
+  {
+    plugins: { unicorn },
+    rules: {
+      'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+    },
+  },
+]
+```
+
+**3. Relax JSDoc or no-magic-numbers**
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+
+module.exports = [
+  ...createConfig(),
+  {
+    rules: {
+      'jsdoc/require-jsdoc': 'off',
+      'no-magic-numbers': 'off',
+    },
+  },
+]
+```
+
+**Examples:** See `examples/rule-overrides/` for working configs and tests.
 
 ## Why this config
 
