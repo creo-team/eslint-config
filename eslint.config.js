@@ -9,6 +9,7 @@ const prettier = require('eslint-plugin-prettier')
 const tsEslint = require('typescript-eslint')
 
 const { rules } = require('./rules.js')
+const { buildStructureConfig } = require('./structure.js')
 const { getTsConfigFile } = require('./utils.js')
 
 const DEFAULT_IGNORES = ['dist/**', 'test/**']
@@ -20,17 +21,51 @@ const DEFAULT_IGNORES = ['dist/**', 'test/**']
  * @param options.ignores - Extra ignore patterns (merged with default `['dist/**', 'test/**']`). Pass a full array to replace.
  * @param options.projectService - If true, use type-checked linting per file from nearest tsconfig (recommended for monorepos). When false/omitted, use a single tsconfig.
  * @param options.tsconfig - Path to tsconfig for type-aware linting. Ignored when projectService is true. If omitted, uses getTsConfigFile() (env vars supported).
+ * @param options.structure - Optional folder structure enforcement. Requires eslint-plugin-project-structure. Use { workspaces: ['nextjs','aws/infra','shared'], appStructure: 'nextjs', appPath: 'nextjs' } for monorepos.
  * @returns Flat config array for use with ESLint.
  */
 function createConfig(options = {}) {
-	const { ignores = DEFAULT_IGNORES, projectService = false, tsconfig = getTsConfigFile() } = options
+	const {
+		ignores = DEFAULT_IGNORES,
+		projectService = false,
+		structure: structureOpts = null,
+		tsconfig = getTsConfigFile(),
+	} = options
 
 	const parserOptions = projectService
 		? { projectService: true, sourceType: 'unambiguous' }
 		: { project: tsconfig, sourceType: 'unambiguous' }
 
-	return tsEslint.config(
+	let projectStructureBlock = null
+	if (structureOpts) {
+		try {
+			const {
+				createFolderStructure,
+				projectStructureParser,
+				projectStructurePlugin,
+			} = require('eslint-plugin-project-structure')
+			const folderConfig = buildStructureConfig(structureOpts)
+			if (folderConfig) {
+				projectStructureBlock = {
+					files: ['**'],
+					ignores: ['projectStructure.cache.json'],
+					languageOptions: { parser: projectStructureParser },
+					plugins: { 'project-structure': projectStructurePlugin },
+					rules: {
+						'project-structure/folder-structure': ['error', createFolderStructure(folderConfig)],
+					},
+				}
+			}
+		} catch {
+			throw new Error(
+				'@creo-team/eslint-config: structure option requires eslint-plugin-project-structure. Run: npm install eslint-plugin-project-structure --save-dev',
+			)
+		}
+	}
+
+	const configBlocks = [
 		{ ignores },
+		...(projectStructureBlock ? [projectStructureBlock] : []),
 		eslint.configs.recommended,
 		...tsEslint.configs.recommendedTypeChecked,
 		...tsEslint.configs.stylisticTypeChecked,
@@ -87,7 +122,9 @@ function createConfig(options = {}) {
 				'@typescript-eslint/no-unsafe-return': 'off',
 			},
 		},
-	)
+	]
+
+	return tsEslint.config(...configBlocks)
 }
 
 module.exports = createConfig({ ignores: ['dist/**', 'test/**', 'examples/**'] })

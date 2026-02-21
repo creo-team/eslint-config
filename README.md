@@ -11,6 +11,8 @@ ESLint flat config for TypeScript/React: strict type-checking, Prettier, JSDoc, 
 npm install @creo-team/eslint-config --save-dev
 ```
 
+**Node:** Supports Node 20–24. Prefer Node 24 for best compatibility.
+
 ## Usage patterns
 
 ### 1. Single repo (default)
@@ -210,9 +212,82 @@ module.exports = [
 
 **LLM- and assistant-friendly.** Cursor, Claude, and other tools behave better when the codebase is consistent and documented. This config enforces one style (so generated code matches), requires JSDoc on public surfaces (so the model has context), and keeps complexity and magic numbers in check (so suggestions stay in the same style and refactors are local). Use the [ESLint MCP server](https://eslint.org/docs/latest/use/mcp) so the assistant can run ESLint and fix violations in your editor.
 
-## Optional: project structure
+## Optional: lock in project structure
 
-For folder/file structure enforcement, add [eslint-plugin-project-structure](https://www.npmjs.com/package/eslint-plugin-project-structure) in your project and configure it (e.g. `.projectStructurerc`). This package does not include it by default.
+Lock in monorepo workspace dirs and app directory structure. Requires [eslint-plugin-project-structure](https://www.npmjs.com/package/eslint-plugin-project-structure):
+
+```bash
+npm install eslint-plugin-project-structure --save-dev
+```
+
+### Monorepo — lock workspace dirs
+
+Enforce that only `nextjs`, `aws/infra`, and `shared` exist at the root:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+
+module.exports = createConfig({
+  projectService: true,
+  structure: {
+    workspaces: ['nextjs', 'aws/infra', 'shared'],
+  },
+  ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/cdk.out/**', '**/*.config.*'],
+})
+```
+
+### Monorepo + app structure
+
+Lock workspaces and enforce app layout (e.g. `components`, `lib`, `utils`) inside the `nextjs` package:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+
+module.exports = createConfig({
+  projectService: true,
+  structure: {
+    workspaces: ['nextjs', 'aws/infra', 'shared'],
+    appStructure: 'nextjs',  // preset: app/, components/, lib/, utils/, hooks/, styles/, public/
+    appPath: 'nextjs',       // which workspace gets app structure
+  },
+  ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/cdk.out/**', '**/*.config.*'],
+})
+```
+
+### Single repo — app structure only
+
+Enforce structure for a single Next.js app:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+
+module.exports = createConfig({
+  structure: {
+    appStructure: 'nextjs',  // app/, components/, lib/, utils/, hooks/, styles/, public/
+  },
+  ignores: ['.next/**', 'node_modules/**'],
+})
+```
+
+### App structure presets
+
+| Preset | Dirs |
+|--------|------|
+| `nextjs` | app, components, lib, utils, hooks, styles, public |
+| `nextjsAppRouter` | Same + settings |
+| `react` | src/{components, lib, utils, hooks, styles}, public |
+| `express` | src/{routes, controllers, services, utils, middleware} |
+| `src` | src/{components, lib, utils, settings} |
+
+### Custom dirs
+
+Pass an array of dir names instead of a preset:
+
+```javascript
+structure: {
+  appStructure: ['components', 'lib', 'utils', 'hooks', 'settings'],
+}
+```
 
 ## What’s included
 
@@ -230,6 +305,7 @@ Trunk-based. Bump `version` in `package.json`, push `main` → `github-release` 
 ## Examples
 
 - **Monorepo:** `examples/monorepo/` — root config with `projectService`, npm workspaces. See [examples/README.md](./examples/README.md).
+- **Structure:** `examples/structure/` — lock in workspaces and app dirs with `structure` option. See [examples/structure/README.md](./examples/structure/README.md).
 
 ## Development
 
