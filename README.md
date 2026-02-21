@@ -42,12 +42,7 @@ Add scripts to `package.json`:
 
 ## Release flow
 
-1. Bump `version` in `package.json` on `develop`
-2. Merge `develop` into `main`
-3. Push `main` → workflow creates release and tag (e.g. `2.0.2`)
-4. Release published → workflow publishes to npm
-
-No tokens. OIDC trusted publishing.
+Trunk-based. Bump `version` in `package.json`, push `main` → release creates tag, publish pushes to npm. OIDC, no tokens.
 
 ## Development
 
