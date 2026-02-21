@@ -1,5 +1,5 @@
-name: Node Release
-run-name: Node Release [${{ github.ref_name }}] triggered by [${{ github.event_name }}/${{ github.actor }}]
+name: Release
+run-name: Release · ${{ github.ref_name }}
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Create release and tag
+      - name: Create release
         run: |
           VERSION=$(node -p "require('./package.json').version")
           if gh release view "$VERSION" --repo ${{ github.repository }} 2>/dev/null; then
