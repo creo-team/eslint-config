@@ -1,189 +1,72 @@
+# @creo-team/eslint-config
 
-<div align="center">
+Modern TypeScript/React ESLint configuration with unified stylistic rules. Integrates [ESLint](https://eslint.org/) and [TypeScript ESLint](https://typescript-eslint.io/) for clean, consistent code.
 
-<a href="https://www.linkedin.com/in/coltenkrauter/" target="_blank"><img src="https://img.shields.io/badge/LinkedIn-%230077B5.svg?&style=flat-square&logo=linkedin&logoColor=white" alt="LinkedIn"></a>
-![License](https://img.shields.io/github/license/krauters/eslint-config)
-![visitors](https://visitor-badge.laobi.icu/badge?page_id=krauters.eslint-config)
+[![npm version](https://img.shields.io/npm/v/@creo-team/eslint-config.svg)](https://www.npmjs.com/package/@creo-team/eslint-config)
+[![License](https://img.shields.io/github/license/creo-team/eslint-config)](./LICENSE)
 
-![Version](https://img.shields.io/github/v/release/krauters/eslint-config)
-[![npm version](https://img.shields.io/npm/v/@krauters/eslint-config.svg?style=flat-square)](https://www.npmjs.org/package/@krauters/eslint-config)
-![GitHub Stars](https://img.shields.io/github/stars/krauters/eslint-config)
-![Forks](https://img.shields.io/github/forks/krauters/eslint-config)
+## Install
 
-![GitHub Issues](https://img.shields.io/github/issues/krauters/eslint-config)
-![Open PRs](https://img.shields.io/github/issues-pr/krauters/eslint-config)
-![Commits per Month](https://img.shields.io/github/commit-activity/m/krauters/eslint-config)
-![Contributors](https://img.shields.io/github/contributors/krauters/eslint-config)
-![Last Commit](https://img.shields.io/github/last-commit/krauters/eslint-config)
-
-[![install size](https://img.shields.io/badge/dynamic/json?url=https://packagephobia.com/v2/api.json?p=@krauters/eslint-config&query=$.install.pretty&label=install%20size&style=flat-square)](https://packagephobia.now.sh/result?p=@krauters/eslint-config)
-![Code Size](https://img.shields.io/github/languages/code-size/krauters/eslint-config)
-![Repo Size](https://img.shields.io/github/repo-size/krauters/eslint-config)
-
-</div>
-
-# ESLint Config
-
-This configuration integrates [ESLint](https://eslint.org/) and [TypeScript ESLint](https://typescript-eslint.io/), built to ensure clean, consistent, and maintainable code in JavaScript and TypeScript projects.
-
-## Tenets
-
-1. **Feedback Loops**: In DevOps, feedback loops are essential. Realtime linting gives developers instant insight, allowing faster fixes and smoother workflows. So, configure your IDE to provide linting feedback as you type.
-
-2. **Code Consistency**: Linting ensures uniform coding standards across the team, reducing errors and enhancing collaboration by maintaining clarity and readability.
-
-## Rules
-
-All linting rules are defined in [rules.js](./rules.js). This configuration offers a strong foundation suitable for most projects, promoting code quality from the start while remaining flexible for customization.
+```bash
+npm install @creo-team/eslint-config --save-dev
+```
 
 ## Usage
 
-### Commands You Need
+Add to your project root:
 
-```zsh
-# Check if your code passes lint rules
-npm run lint
-
-# Fix what can be auto-fixed
-npm run fix
-```
-
-### Using this Lint Config in Your Project
-
-1. Install the necessary dependencies:
-
-```zsh
-npm install @krauters/eslint-config --save-dev
-```
-
-1. Add a config file `eslint.config.js` to the root of your project with the following contents,
-
-### ESM
+**ESM** (`eslint.config.mjs` or `eslint.config.js`):
 
 ```javascript
-// eslint.config.js
-
-import eslintConfig from '@krauters/eslint-config'
-
+import eslintConfig from '@creo-team/eslint-config'
 export default eslintConfig
 ```
 
-### CommonJS
+**CommonJS** (`eslint.config.js`):
 
 ```javascript
-// eslint.config.js
-
-const eslintConfig = require('@krauters/eslint-config')
-
+const eslintConfig = require('@creo-team/eslint-config')
 module.exports = eslintConfig
 ```
 
-1. Add these npm scripts to your [package.json](./package.json),
+Add scripts to `package.json`:
 
 ```json
 {
-  ...
   "scripts": {
-    "test": "npm run lint",
-    "lint": "npx eslint src/**",
-    "fix": "npm run lint -- --fix"
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
   }
 }
 ```
 
-1. Update your README to show off your linting setup,
+## Release flow
 
-````zsh
-## Lint
-This package uses [@krauters/eslint-config](https://github.com/krauters/eslint-config).
+1. Bump `version` in `package.json` on `develop`
+2. Merge `develop` into `main`
+3. Push `main` → workflow creates release and tag (e.g. `2.0.2`)
+4. Release published → workflow publishes to npm
 
-```zsh
-# Check if your code follows the rules
-npm run lint
-
-# Fix what can be auto-fixed
-npm run fix
-```
-````
-
-1. Now, let’s try it out.
-
-```zsh
-npm run lint
-npm run fix
-```
+No tokens. OIDC trusted publishing.
 
 ## Development
 
-### Testing Locally
+**Test locally** with `npm link`:
 
-Want to test this linting config locally between two repos? Easy.
-
-- **Repo1** is the ESLint config repo.
-- **Repo2** is a JS/TS project using Repo1.
-
-#### Steps
-
-1. Clone both repos.
-2. Link 'em up. From the root of Repo1, run:
-
-```zsh
+```bash
+# In eslint-config repo
 npm link
+
+# In consuming project
+npm link @creo-team/eslint-config
 ```
 
-3. Then in Repo2, do this:
+**Environment variables** (optional):
 
-```zsh
-npm link @krauters/eslint-config
-```
-
-4. When you’re done testing, unlink it with,
-
-```zsh
-npm unlink @krauters/eslint-config
-```
-
-### Setting Up Environment Variables
-
-To control the behavior of how this package gets it's tsconfig file, you can set the following environment variables:
-
-- `ESLINT_DEBUG`: Enables detailed debug logging. Set this to any truthy value, e.g., `1` or `true`.
-- `ESLINT_TSCONFIG`: Overrides the default target file being searched. Defaults to `tsconfig.eslint.json`.
-- `ESLINT_START_DIR`: Specifies the starting directory for the search. Defaults to the current working directory (`process.cwd()`).
-- `ESLINT_TSCONFIG_FALLBACK`: Sets a fallback file to use if the target file is not found. Defaults to `tsconfig.json`.
-
-### Debugging Tips
-
-To troubleshoot your ESLint configuration, use the following commands:
-
-```zsh
-# Print the full ESLint config for a specific file that you want to lint
-npx eslint --print-config test/auth-service.test.ts | grep tsconfig
-
-# Enable debug logging while running ESLint
-ESLINT_DEBUG=true npx eslint .
-```
-
-## Resources
-
-- [TypeScript ESLint Playground](https://typescript-eslint.io/play)
-
-## Contributing
-
-The goal of this project is to continually evolve and improve its core features, making it more efficient and easier to use. Development happens openly here on GitHub, and we’re thankful to the community for contributing bug fixes, enhancements, and fresh ideas. Whether you're fixing a small bug or suggesting a major improvement, your input is invaluable.
+- `ESLINT_DEBUG` — enable debug logging
+- `ESLINT_TSCONFIG` — override tsconfig file
+- `ESLINT_START_DIR` — search start directory
 
 ## License
 
-This project is licensed under the ISC License. Please see the [LICENSE](./LICENSE) file for more details.
-
-## 🥂 Thanks Contributors
-
-Thanks for spending time on this project.
-
-<a href="https://github.com/krauters/eslint-config/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=krauters/eslint-config" />
-</a>
-
-<br />
-<br />
-<a href="https://www.buymeacoffee.com/coltenkrauter"><img src="https://img.buymeacoffee.com/button-api/?text=Buy me a coffee&emoji=&slug=coltenkrauter&button_colour=FFDD00&font_colour=```&font_family=Cookie&outline_colour=```&coffee_colour=ffffff" /></a>
+ISC.

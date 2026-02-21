@@ -2,21 +2,19 @@ name: Node Publish
 run-name: Node Publish [${{ github.ref_name }}] triggered by [${{ github.event_name }}/${{ github.actor }}]
 
 on:
-  push:
-    branches: [main]
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
   id-token: write
-  contents: write
+  contents: read
 
 jobs:
   publish:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -24,10 +22,5 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - run: npm ci
-
-      - name: Create release and tag
-        run: |
-          VERSION=$(node -p "require('./package.json').version")
-          gh release create "$VERSION" --title "$VERSION" --notes "Release $VERSION" --repo ${{ github.repository }}
 
       - run: npm publish --access public

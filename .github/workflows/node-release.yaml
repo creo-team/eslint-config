@@ -3,11 +3,25 @@ run-name: Node Release [${{ github.ref_name }}] triggered by [${{ github.event_n
 
 on:
   push:
-    branches: 'main'
+    branches: [main]
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
-  publish:
-    uses: krauters/shared-workflows/.github/workflows/node-release.yaml@main
-    secrets:
-      GH_TOKEN_RELEASES: ${{ secrets.GH_TOKEN_RELEASES }}
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Create release and tag
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if gh release view "$VERSION" --repo ${{ github.repository }} 2>/dev/null; then
+            echo "Release $VERSION already exists, skipping"
+          else
+            gh release create "$VERSION" --title "$VERSION" --notes "Release $VERSION" --repo ${{ github.repository }}
+          fi
