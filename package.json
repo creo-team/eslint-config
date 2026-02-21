@@ -1,6 +1,6 @@
 {
   "name": "@creo-team/eslint-config",
-  "version": "2.3.5",
+  "version": "2.3.6",
   "description": "ESLint flat config: TypeScript (strict), Prettier, JSDoc, complexity, no-magic-numbers. createConfig() for options.",
   "author": "Colten Krauter <coltenkrauter>",
   "main": "dist/eslint.config.js",

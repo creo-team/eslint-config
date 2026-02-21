@@ -41,4 +41,7 @@ jobs:
         run: npm install -g npm@latest
 
       - if: steps.release.outputs.created == 'true'
-        run: unset NODE_AUTH_TOKEN && npm publish --provenance --access public
+        run: |
+          unset NODE_AUTH_TOKEN
+          unset NPM_CONFIG_USERCONFIG
+          npm publish --provenance --access public
