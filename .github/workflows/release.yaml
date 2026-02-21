@@ -37,4 +37,7 @@ jobs:
         run: npm run build
 
       - if: steps.release.outputs.created == 'true'
+        run: npm install -g npm@latest
+
+      - if: steps.release.outputs.created == 'true'
         run: npm publish --provenance --access public
