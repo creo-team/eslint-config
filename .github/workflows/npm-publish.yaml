@@ -1,10 +1,12 @@
 # Required filename for npm Trusted Publisher (OIDC)
 name: npm Publish
-run-name: npm Publish · ${{ github.event.release.tag_name || 'dry-run' }}
+run-name: npm Publish · ${{ github.event.workflow_run.head_branch || 'dry-run' }}
 
 on:
-  release:
-    types: [published, released]
+  workflow_run:
+    workflows: [GitHub Release]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -13,9 +15,12 @@ permissions:
 
 jobs:
   publish:
+    if: github.event_name == 'workflow_dispatch' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event_name == 'workflow_run' && github.event.workflow_run.head_sha || github.sha }}
 
       - uses: actions/setup-node@v4
         with:
@@ -25,7 +30,7 @@ jobs:
       - run: npm ci
 
       - name: Publish to npm
-        if: github.event_name == 'release'
+        if: github.event_name == 'workflow_run'
         run: npm publish --provenance --access public
 
       - name: Dry run
