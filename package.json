@@ -1,6 +1,6 @@
 {
   "name": "@creo-team/eslint-config",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Modern TypeScript/React ESLint configuration with unified stylistic rules.",
   "author": "Colten Krauter <coltenkrauter>",
   "main": "dist/eslint.config.js",
