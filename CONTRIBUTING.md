@@ -24,7 +24,7 @@ Trunk-based. Bump `version` in `package.json`, push `main`. [action-release](htt
 
 **Flow:** Push to main → action-release creates tag + GitHub Release → `npm run build` → `npm publish --provenance --access public`
 
-**Auth:** Trusted Publishing (OIDC). Workflow filename `release.yaml` configured at npmjs.com → Package Settings → Trusted Publisher. No token needed.
+**Auth:** Add `NPM_TOKEN` secret (granular publish token). OIDC Trusted Publishing optional: configure `release.yaml` at npmjs.com → Package → Access → Trusted Publisher.
 
 ## Verification before submit
 
