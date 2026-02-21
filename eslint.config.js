@@ -90,5 +90,5 @@ function createConfig(options = {}) {
 	)
 }
 
-module.exports = createConfig()
+module.exports = createConfig({ ignores: ['dist/**', 'test/**', 'examples/**'] })
 module.exports.createConfig = createConfig

@@ -49,29 +49,45 @@ module.exports = createConfig({
 Multiple packages (e.g. `app/`, `lib/`, `infra/`), each with its own `tsconfig.json`. Use **projectService** so type-aware rules resolve the nearest tsconfig per file. One `eslint.config.js` at the repo root; run `eslint .` from the root.
 
 ```javascript
-// eslint.config.js at monorepo root
 const { createConfig } = require('@creo-team/eslint-config')
 
 module.exports = createConfig({
-  ignores: ['**/node_modules/**', '**/dist/**', '**/.next/**', '**/build/**'],
+  ignores: [
+    '**/node_modules/**',
+    '**/dist/**',
+    '**/.next/**',
+    '**/build/**',
+    '**/out/**',
+    '**/cdk.out/**',
+    '**/*.config.js',
+    '**/*.config.mjs',
+    '**/*.config.ts',
+  ],
   projectService: true,
 })
 ```
 
-Ensure each package that contains TypeScript has a `tsconfig.json` (or `tsconfig.eslint.json`) in that directory. No `tsconfig.eslint.json` at root is required. See [typescript-eslint project service](https://typescript-eslint.io/blog/project-service).
-
-**Root `package.json` scripts** (e.g. npm workspaces):
+**Root `package.json`** (npm workspaces):
 
 ```json
 {
+  "workspaces": ["nextjs", "aws/infra", "shared"],
   "scripts": {
     "lint": "eslint .",
     "fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@creo-team/eslint-config": "^2.3.9",
+    "eslint": "^9.39.3"
   }
 }
 ```
 
-### 4. Monorepo — per-workspace config (e.g. Vecta-style)
+**Requirements:** Each package with TypeScript has a `tsconfig.json` in that directory. No root tsconfig required. See [typescript-eslint project service](https://typescript-eslint.io/blog/project-service).
+
+**Example:** See `examples/monorepo/` in this repo. Run `cd examples/monorepo && npm install && npm run lint` to validate.
+
+### 4. Monorepo — per-workspace config
 
 Lint is run **per workspace** (`npm run lint -w nextjs`). Each workspace has its own `eslint.config.js` and its own `tsconfig`. Use the default preset (no `projectService`); the config runs with that workspace as cwd, so `getTsConfigFile()` finds that package’s tsconfig.
 
@@ -139,7 +155,11 @@ For folder/file structure enforcement, add [eslint-plugin-project-structure](htt
 
 ## Release flow
 
-Trunk-based. Bump `version` in `package.json`, push `main` → `github-release` creates tag → `npm-publish` publishes. OIDC, no tokens. Release runs only when `package.json` changes.
+Trunk-based. Bump `version` in `package.json`, push `main` → `github-release` creates tag + GitHub Release → `npm-publish` publishes to npm. OIDC Trusted Publishing, no tokens.
+
+## Examples
+
+- **Monorepo:** `examples/monorepo/` — root config with `projectService`, npm workspaces. See [examples/README.md](./examples/README.md).
 
 ## Development
 

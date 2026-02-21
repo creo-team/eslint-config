@@ -27,6 +27,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 | `rules.js` | Rule groups: commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint; merged into `rules`; includes complexity, no-magic-numbers |
 | `utils.js` | Helpers: `debug()`, `getTsConfigFile()`; Node globals via config |
 | `eslint.config.js` | Exports default `createConfig()` and `createConfig`; no project-structure plugin |
+| `examples/monorepo/` | Monorepo example (root config, projectService); run `npm install && npm run lint` to validate |
 
 ## Verification
 

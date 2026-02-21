@@ -38,6 +38,7 @@ Exported `rules` object merges these in order; later spreads override earlier.
 | `eslint.config.js` | Exports default and `createConfig`; flat config; no project-structure |
 | `CONTRIBUTING.md` | Setup, lint/fix/build/test, release, OIDC, MCP |
 | `test/` | Vitest unit tests (utils), ESLint fixture test |
+| `examples/monorepo/` | Monorepo example (root config, projectService) |
 
 ## Globals
 

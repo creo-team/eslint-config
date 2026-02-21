@@ -1,0 +1,14 @@
+{
+  "name": "example-monorepo",
+  "version": "0.0.0",
+  "private": true,
+  "workspaces": ["app", "lib", "shared"],
+  "scripts": {
+    "lint": "eslint .",
+    "fix": "eslint . --fix"
+  },
+  "devDependencies": {
+    "@creo-team/eslint-config": "^2.4.0",
+    "eslint": "^9.39.3"
+  }
+}

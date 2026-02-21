@@ -34,4 +34,22 @@ describe('eslint config', () => {
 		const errors = results.flatMap((r) => r.messages.filter((m) => m.severity === 2))
 		expect(errors).toHaveLength(0)
 	})
+
+	it('lints examples/monorepo with projectService and zero errors', async () => {
+		const repoRoot = path.resolve(__dirname, '..')
+		const { createConfig } = require(path.join(repoRoot, 'eslint.config.js'))
+		const config = createConfig({
+			ignores: ['**/node_modules/**', '**/dist/**', '**/*.config.js'],
+			projectService: true,
+		})
+		const examplesMonorepo = path.resolve(repoRoot, 'examples', 'monorepo')
+		const eslint = new ESLint({
+			cwd: examplesMonorepo,
+			overrideConfig: config,
+			overrideConfigFile: true,
+		})
+		const results = await eslint.lintFiles(['app/index.ts', 'lib/index.ts', 'shared/types.ts'])
+		const errors = results.flatMap((r) => r.messages.filter((m) => m.severity === 2))
+		expect(errors).toHaveLength(0)
+	})
 })

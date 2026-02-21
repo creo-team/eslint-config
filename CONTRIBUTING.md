@@ -35,6 +35,16 @@ npm test
 npm run build
 ```
 
+## Validate monorepo example
+
+```bash
+cd examples/monorepo
+npm install
+npm run lint
+```
+
+Should pass with zero errors. Uses the published `@creo-team/eslint-config` from npm.
+
 ## IDE and AI (Cursor / Claude)
 
 - **ESLint MCP:** Use the [ESLint MCP server](https://eslint.org/docs/latest/use/mcp) so Cursor or Claude can lint and fix. Add to `.cursor/mcp.json` or your editor’s MCP config.
