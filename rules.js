@@ -1,13 +1,6 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
-const { all, always, error, never, none, off } = {
-	all: 'all',
-	always: 'always',
-	error: 'error',
-	never: 'never',
-	none: 'none',
-	off: 'off',
-}
+const { all, always, error, never, none, off, warn } = require('./constants.js')
 
 const { camelCase, pascalCase } = {
 	camelCase: 'camelCase',
@@ -22,7 +15,6 @@ const maxConsecutiveEmptyLines = 1
 const printWidth = 120
 const tabWidth = 4
 const newlineCount = 1
-const warn = 'warn'
 
 /*
  * JSDoc rules.
@@ -169,11 +161,11 @@ const tsEslint = {
 	'@typescript-eslint/no-unnecessary-condition': off,
 
 	// Better React/Next.js support
-	'@typescript-eslint/no-unsafe-argument': 'warn',
+	'@typescript-eslint/no-unsafe-argument': warn,
 	'@typescript-eslint/no-unsafe-assignment': off,
 	'@typescript-eslint/no-unsafe-call': off,
 	'@typescript-eslint/no-unsafe-member-access': off,
-	'@typescript-eslint/no-unsafe-return': 'warn',
+	'@typescript-eslint/no-unsafe-return': warn,
 	'@typescript-eslint/restrict-template-expressions': off,
 	'@typescript-eslint/unbound-method': off,
 	complexity: [error, { max: maxComplexity }],
@@ -228,7 +220,7 @@ const commonjsPreventRules = {
  * Rules to disable due to clashes
  */
 const rulesToDisable = {
-	'perfectionist/sort-imports': 'off',
+	'perfectionist/sort-imports': off,
 }
 
 const rules = {

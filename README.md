@@ -180,13 +180,34 @@ module.exports = [
 
 ```javascript
 const { createConfig } = require('@creo-team/eslint-config')
+const { off } = require('@creo-team/eslint-config/constants')
 
 module.exports = [
   ...createConfig(),
   {
     rules: {
-      'jsdoc/require-jsdoc': 'off',
-      'no-magic-numbers': 'off',
+      'jsdoc/require-jsdoc': off,
+      'no-magic-numbers': off,
+    },
+  },
+]
+```
+
+**4. Rule severity constants**
+
+Import `off`, `warn`, and `error` from `@creo-team/eslint-config/constants` for consistent, typo-free overrides:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+const { error, off, warn } = require('@creo-team/eslint-config/constants')
+
+module.exports = [
+  ...createConfig(),
+  {
+    rules: {
+      'no-console': warn,
+      'jsdoc/require-jsdoc': off,
+      'some-rule': [error, { option: true }],
     },
   },
 ]
