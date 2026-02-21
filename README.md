@@ -42,7 +42,7 @@ Add scripts to `package.json`:
 
 ## Release flow
 
-Trunk-based. Bump `version` in `package.json`, push `main` → release creates tag, publish pushes to npm. OIDC, no tokens.
+Trunk-based. Bump `version` in `package.json`, push `main` → `github-release` creates tag → `npm-publish` publishes. OIDC, no tokens. Release runs only when `package.json` changes.
 
 ## Development
 

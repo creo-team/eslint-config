@@ -1,4 +1,4 @@
-name: Publish
+name: npm Publish
 run-name: Publish · ${{ github.event.release.tag_name || github.ref_name }}
 
 on:

@@ -15,4 +15,6 @@ npm install
 
 ## Release
 
-Trunk-based. Bump `version` in `package.json`, push `main`. Release and publish run automatically.
+Trunk-based. Bump `version` in `package.json`, push `main`. `github-release` creates the tag; `npm-publish` publishes to npm. Runs only when `package.json` changes.
+
+**npm Trusted Publisher:** If using OIDC, configure workflow filename `npm-publish.yaml` at npmjs.com.
