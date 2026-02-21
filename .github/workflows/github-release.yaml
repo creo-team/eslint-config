@@ -1,0 +1,31 @@
+name: GitHub Release
+run-name: GitHub Release · ${{ github.ref_name }}
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Preview only (no tag or release)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: creo-team/action-release@v1
+        with:
+          version-source: package-json
+          changelog: true
+          if-exists: skip
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run == true }}
