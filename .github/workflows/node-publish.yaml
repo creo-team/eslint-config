@@ -2,10 +2,8 @@ name: Node Publish
 run-name: Node Publish [${{ github.ref_name }}] triggered by [${{ github.event_name }}/${{ github.actor }}]
 
 on:
-  release:
-    types: published
   push:
-    branches: '*'
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -25,10 +23,4 @@ jobs:
 
       - run: npm ci
 
-      - name: Publish to npm
-        if: github.event_name == 'release'
-        run: npm publish --access public
-
-      - name: Dry run
-        if: github.event_name != 'release'
-        run: npm publish --dry-run --access public
+      - run: npm publish --access public
