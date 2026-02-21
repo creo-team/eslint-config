@@ -11,6 +11,15 @@ interface HiveProps {
 	hiveName: string
 }
 
+/**
+ * Renders a hive with its name, bee count, and list of bees.
+ *
+ * @param props - Hive props.
+ * @param props.beeCount - Number of bees.
+ * @param props.bees - List of bees.
+ * @param props.hiveName - Name of the hive.
+ * @returns Hive UI.
+ */
 export const Hive: React.FC<HiveProps> = ({ beeCount, bees, hiveName }) => {
 	if (beeCount === 0) {
 		return <p>The hive "{hiveName}" has no bees currently.</p>
@@ -31,6 +40,11 @@ export const Hive: React.FC<HiveProps> = ({ beeCount, bees, hiveName }) => {
 	)
 }
 
+/**
+ * Example app that renders a hive with sample bees.
+ *
+ * @returns App UI.
+ */
 export const App: React.FC = () => {
 	const exampleBees: BeeProps[] = [
 		{ name: 'Buzz', role: 'worker' },

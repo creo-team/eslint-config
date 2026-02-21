@@ -1,9 +1,45 @@
+# Build and tooling
 build
 tests
+test
 doc
 *.log
 *.tmp
+.DS_Store
+
+# IDE and editor
 .vscode
+.idea
+.cursor
+
+# CI and repo
 .github
-node_modules
+.git
+.gitignore
+.gitattributes
+
+# Source (only dist is published)
+*.ts
+!*.d.ts
+*.tsx
+*.js
+!dist/**/*.js
+*.mjs
+*.cjs
 eslint.config.js
+rules.js
+utils.js
+tsconfig.json
+tsconfig.*.json
+vitest.config.js
+
+# Examples and dev docs (not needed at runtime)
+examples
+AGENTS.md
+CLAUDE.md
+CONTRIBUTING.md
+.cursorrules
+*.mdc
+
+# Dependencies (installed by consumer)
+node_modules

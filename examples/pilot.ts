@@ -42,7 +42,11 @@ class Pilot {
 	}
 }
 
-new Pilot('RebelOne', 102, 'YT-1300', Starship.MillenniumFalcon)
-new Pilot('CaptainPicard', 1500, 'Constitution-class', Starship.Enterprise)
-new Pilot('Browncoat', 47, 'Firefly-class', Starship.Serenity)
-new Pilot('Mando', 55, 'ST-70', Starship.RazorCrest)
+const missionsRebel = 102
+const missionsCaptain = 1500
+const missionsBrowncoat = 47
+const missionsMando = 55
+new Pilot('RebelOne', missionsRebel, 'YT-1300', Starship.MillenniumFalcon)
+new Pilot('CaptainPicard', missionsCaptain, 'Constitution-class', Starship.Enterprise)
+new Pilot('Browncoat', missionsBrowncoat, 'Firefly-class', Starship.Serenity)
+new Pilot('Mando', missionsMando, 'ST-70', Starship.RazorCrest)

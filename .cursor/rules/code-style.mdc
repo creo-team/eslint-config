@@ -1,0 +1,40 @@
+---
+description: Coding conventions, naming, and file roles for eslint-config
+globs:
+alwaysApply: true
+---
+
+# Code Style
+
+## Core Principles
+
+- **No magic values in rule config** — use named constants in `rules.js` (e.g. `error`, `off`, `maxLinesPerFile`, `maxComplexity`)
+- **Section headers** — `// ============================================================================` above each rule group in rules.js
+- **Small functions** — single purpose, early returns; keep utils.js helpers focused
+- **Descriptive names** — e.g. `maxLinesPerFile` not `max`
+
+## Naming Conventions
+
+| Element | Convention | Example |
+|---------|-----------|---------|
+| Files | kebab-case | `eslint.config.js`, `rules.js`, `utils.js` |
+| Rule group vars | camelCase | `commonjsPreventRules`, `stylisticTs`, `tsEslint` |
+| Constants | camelCase | `maxClasses`, `printWidth`, `newlineCount` |
+| Severity/options | Use destructured consts | `error`, `off`, `always`, `never` |
+
+## File Organization
+
+| File | Role |
+|------|------|
+| `rules.js` | Rule groups and merged `rules`; exports for config |
+| `utils.js` | Helpers for config (getTsConfigFile, debug); Node only |
+| `eslint.config.js` | Flat config entry; requires rules and utils |
+
+## Imports (rules.js / eslint.config.js)
+
+- External packages first (require)
+- Internal: `./rules.js`, `./utils.js` (relative)
+
+## Commits
+
+Conventional commits: `feat(scope):`, `fix(scope):`, `refactor(scope):`. One change per commit.

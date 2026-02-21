@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "eslint": {
+      "command": "npx",
+      "args": ["-y", "@modelcontextprotocol/server-eslint"],
+      "cwd": "/absolute/path/to/your/project"
+    }
+  }
+}

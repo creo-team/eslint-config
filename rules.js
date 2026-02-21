@@ -11,17 +11,18 @@ const { all, always, error, never, none, off } = {
 
 const { camelCase, pascalCase } = {
 	camelCase: 'camelCase',
-	kebabCase: 'kebab',
 	pascalCase: 'PascalCase',
 }
 
 const maxClasses = 1
+const maxComplexity = 15
 const maxLinesPerFile = 400
 const maxLinesPerFunction = 200
 const maxConsecutiveEmptyLines = 1
 const printWidth = 120
 const tabWidth = 4
 const newlineCount = 1
+const warn = 'warn'
 
 /*
  * JSDoc rules.
@@ -135,7 +136,7 @@ const stylisticTs = {
 		},
 	],
 	'@stylistic/no-extra-parens': [error, 'functions'],
-	'@stylistic/padding-line-between-statements': error,
+	'@stylistic/padding-line-between-statements': off,
 	'@stylistic/quote-props': [error, 'as-needed'],
 	'@stylistic/semi': [error, never],
 	'@stylistic/space-before-blocks': [error, always],
@@ -165,8 +166,6 @@ const tsEslint = {
 	],
 	'@typescript-eslint/no-explicit-any': 'warn',
 	'@typescript-eslint/no-extraneous-class': off,
-	'@typescript-eslint/no-restricted-imports': error,
-	'@typescript-eslint/no-restricted-types': error,
 	'@typescript-eslint/no-unnecessary-condition': off,
 
 	// Better React/Next.js support
@@ -177,6 +176,7 @@ const tsEslint = {
 	'@typescript-eslint/no-unsafe-return': 'warn',
 	'@typescript-eslint/restrict-template-expressions': off,
 	'@typescript-eslint/unbound-method': off,
+	complexity: [error, { max: maxComplexity }],
 	'dot-notation': off,
 	'eol-last': [error, always],
 	'import/first': error,
@@ -194,15 +194,23 @@ const tsEslint = {
 	'import/prefer-default-export': off,
 	'max-classes-per-file': [error, { ignoreExpressions: true, max: maxClasses }],
 	'max-lines': [error, { max: maxLinesPerFile, skipBlankLines: true, skipComments: true }],
-
 	'max-lines-per-function': [error, maxLinesPerFunction],
 	'newline-before-return': error,
 	'no-inline-comments': error,
+	'no-magic-numbers': [
+		warn,
+		{
+			enforceConst: true,
+			ignore: [0, 1, -1],
+			ignoreArrayIndexes: true,
+			ignoreDefaultValues: true,
+		},
+	],
 	'no-mixed-spaces-and-tabs': error,
 	'no-multiple-empty-lines': [error, { max: maxConsecutiveEmptyLines }],
 	'no-restricted-imports': off,
 	'no-unsafe-member-access': off,
-	'object-curly-newline': error,
+	'object-curly-newline': off,
 	'spaced-comment': [error, always, { block: { balanced: true } }],
 }
 
@@ -226,6 +234,7 @@ const rulesToDisable = {
 const rules = {
 	...commonjsPreventRules,
 	...prettier,
+	...jsDoc,
 	...stylisticTs,
 	...tsEslint,
 	...rulesToDisable,

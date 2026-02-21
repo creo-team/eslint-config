@@ -1,0 +1,34 @@
+---
+description: Project overview, architecture, and key files for eslint-config
+globs:
+alwaysApply: true
+---
+
+# ESLint Config Project
+
+Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, creo, and others. Flat config; TypeScript ESLint, Prettier, JSDoc, stylistic, import, perfectionist; complexity, no-magic-numbers. Exports default and `createConfig(options)`; no project-structure plugin.
+
+## Required Reading
+
+- `CLAUDE.md` — comprehensive project instructions
+- `CONTRIBUTING.md` — setup, commands, release
+- `AGENTS.md` — agent quick reference
+
+## Key Resources
+
+| File | Purpose |
+|------|---------|
+| `rules.js` | Rule groups (commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint); merged `rules` export |
+| `utils.js` | `getTsConfigFile()`, `debug()`; Node globals via config |
+| `eslint.config.js` | Exports default and `createConfig`; flat config; plugins, languageOptions, rules |
+
+## Architecture
+
+- **rules.js** — Constants and rule objects; no magic values; section headers per group. Exports `rules`, `jsDoc`, `prettier`, etc.
+- **utils.js** — Config resolution and debug logging; used by eslint.config.js at load time.
+- **eslint.config.js** — `createConfig({ ignores?, tsconfig? })`; single flat config; ignores, recommended configs, file overrides, plugins, settings.
+- **test/** — Vitest (utils, ESLint fixture); `*.test.mjs`.
+
+## Verification
+
+Before submitting: `npm test && npm run build`.

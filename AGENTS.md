@@ -1,0 +1,40 @@
+# Agent Instructions
+
+Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working in this codebase. For comprehensive project context, see [CLAUDE.md](CLAUDE.md).
+
+## Project
+
+**@creo-team/eslint-config** — shared ESLint configuration for Creo projects. TypeScript/React, Prettier, JSDoc, stylistic rules, complexity, no-magic-numbers. Exports default flat config and `createConfig(options)` for customization. Optional **projectService** for monorepos (one root config, nearest tsconfig per file); single-repo or per-workspace configs use default.
+
+## Required Reading
+
+| Area | Document |
+|------|----------|
+| All changes | [CLAUDE.md](CLAUDE.md) — single source of truth for conventions |
+| Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) — setup, commands, release |
+
+## Core Rules
+
+- **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
+- **No magic values in rule config** — use named constants (e.g. `error`, `off`, `maxLinesPerFile`) in `rules.js`
+- **Small functions** — single purpose, early returns; keep `utils.js` helpers focused
+- **Section headers** — `// ============================================================================` for rule groups in `rules.js`
+
+## Key Files
+
+| File | Purpose |
+|------|---------|
+| `rules.js` | Rule groups: commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint; merged into `rules`; includes complexity, no-magic-numbers |
+| `utils.js` | Helpers: `debug()`, `getTsConfigFile()`; Node globals via config |
+| `eslint.config.js` | Exports default `createConfig()` and `createConfig`; no project-structure plugin |
+
+## Verification
+
+Before considering work done:
+
+```bash
+npm test
+npm run build
+```
+
+From repo root. Tests run Vitest then lint; build compiles to `dist/`.

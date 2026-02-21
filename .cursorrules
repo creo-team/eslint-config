@@ -1,0 +1,25 @@
+# Cursor Rules
+
+## Commit Messages
+Conventional commits, one line, imperative mood:
+- feat: add new feature
+- fix: resolve bug
+- chore: maintenance task
+- docs: update documentation
+- refactor: restructure code
+
+## Code Principles
+1. No nesting — use early returns
+2. Simple > clever — optimize for readability
+3. Small functions — single purpose
+4. Delete dead code — no unused imports/vars
+5. No magic values in rules — use named constants in rules.js
+
+## File Roles
+rules.js       → Rule groups (prettier, jsDoc, stylisticTs, tsEslint); export merged rules
+utils.js       → getTsConfigFile, debug; Node-only, no undef disable
+eslint.config.js → Flat config; plugins, globals (module, process, require), rules
+
+## Verification
+npm run lint   — ESLint
+npm run build — compile to dist/

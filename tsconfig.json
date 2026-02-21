@@ -19,7 +19,8 @@
 		"noUnusedLocals": true,
 		"noUnusedParameters": true,
 		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true
+		"emitDecoratorMetadata": true,
+		"noEmitOnError": true
 	},
 	"include": [
 		"**/*.ts",
@@ -29,6 +30,8 @@
 		"node_modules",
 		".vscode",
 		"dist",
-		"examples"
+		"examples",
+		"test",
+		"vitest.config.js"
 	]
 }

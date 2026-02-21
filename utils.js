@@ -1,11 +1,10 @@
-/* eslint-disable no-undef */
 const { existsSync } = require('fs')
 const { dirname, join } = require('path')
 
 /**
  * Logs messages to the console if ESLINT_DEBUG environment variable is set.
  *
- * @param message The debug message to log.
+ * @param message - The debug message to log.
  */
 function debug(message) {
 	if (process.env.ESLINT_DEBUG) {
@@ -17,9 +16,9 @@ function debug(message) {
  * Finds the appropriate TypeScript configuration file starting from a directory
  * and searching upward, with support for a fallback and environment variable overrides.
  *
- * @param targetFile The main file to locate (default: 'tsconfig.eslint.json', can be overridden via `ESLINT_TSCONFIG`).
- * @param fallbackFile The fallback file to use if the target is not found (default: 'tsconfig.json', can be overridden via `ESLINT_FALLBACK_TSCONFIG`).
- * @param startDir The directory to start the search (default: process.cwd(), can be overridden via `ESLINT_START_DIR`).
+ * @param targetFile - The main file to locate (default: 'tsconfig.eslint.json', can be overridden via `ESLINT_TSCONFIG`).
+ * @param fallbackFile - The fallback file to use if the target is not found (default: 'tsconfig.json', can be overridden via `ESLINT_FALLBACK_TSCONFIG`).
+ * @param startDir - The directory to start the search (default: process.cwd(), can be overridden via `ESLINT_START_DIR`).
  * @returns The path to the found configuration file or the fallback file.
  */
 function getTsConfigFile(
