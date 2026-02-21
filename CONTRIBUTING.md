@@ -20,9 +20,11 @@ Only `dist/` (eslint.config.js, rules.js, utils.js plus `.d.ts` and `.map`) plus
 
 ## Release
 
-Trunk-based. Bump `version` in `package.json`, push `main`. [action-release](https://github.com/creo-team/action-release) reads the version, creates a tag and GitHub Release with a changelog, then publishes to npm via OIDC.
+Trunk-based. Bump `version` in `package.json`, push `main`. [action-release](https://github.com/creo-team/action-release) reads the version, creates a tag and GitHub Release with a changelog, then publishes to npm.
 
-**npm Trusted Publisher:** Configure workflow filename `release.yaml` at npmjs.com.
+**Flow:** Push to main → action-release creates tag + GitHub Release → `npm run build` → `npm publish --provenance --access public`
+
+**Auth:** Trusted Publishing (OIDC). Workflow filename `release.yaml` configured at npmjs.com → Package Settings → Trusted Publisher. No token needed.
 
 ## Verification before submit
 

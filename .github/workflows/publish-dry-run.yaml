@@ -1,0 +1,21 @@
+# Manual dry-run to debug npm publish. Run via workflow_dispatch.
+name: Publish Dry Run
+on:
+  workflow_dispatch:
+
+jobs:
+  dry-run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'npm'
+      - run: npm ci
+      - run: npm run build
+      - run: npm publish --dry-run --provenance --access public
