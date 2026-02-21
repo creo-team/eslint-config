@@ -1,13 +1,13 @@
 {
-  "name": "@krauters/eslint-config",
-  "version": "1.9.2",
+  "name": "@creo-team/eslint-config",
+  "version": "2.0.1",
   "description": "Modern TypeScript/React ESLint configuration with unified stylistic rules.",
   "author": "Colten Krauter <coltenkrauter>",
   "main": "dist/eslint.config.js",
-  "homepage": "https://github.com/krauters/eslint-config",
+  "homepage": "https://github.com/creo-team/eslint-config",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/krauters/eslint-config.git"
+    "url": "git+https://github.com/creo-team/eslint-config.git"
   },
   "scripts": {
     "build": "tsc",
@@ -20,7 +20,7 @@
   "keywords": [
     "eslint",
     "eslint-config",
-    "krauters",
+    "creo-team",
     "linting",
     "lint"
   ],
