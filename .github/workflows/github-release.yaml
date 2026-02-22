@@ -7,7 +7,6 @@ on:
 
 permissions:
   contents: write
-  actions: write
 
 jobs:
   release:
@@ -20,23 +19,7 @@ jobs:
       - id: release
         uses: creo-team/action-release@v1
         with:
+          token: ${{ secrets.GH_PAT }}
           version-source: package-json
           changelog: true
           if-exists: skip
-
-      # Trigger Publish workflow with the new tag. Uses GH_PAT when GITHUB_TOKEN
-      # lacks workflow_dispatch permission (common in org repos).
-      - if: steps.release.outputs.created == 'true'
-        uses: actions/github-script@v7
-        env:
-          RELEASE_TAG: ${{ steps.release.outputs.tag }}
-        with:
-          github-token: ${{ secrets.GH_PAT || github.token }}
-          script: |
-            await github.rest.actions.createWorkflowDispatch({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              workflow_id: 'npm-publish.yaml',
-              ref: 'main',
-              inputs: { tag: process.env.RELEASE_TAG }
-            })

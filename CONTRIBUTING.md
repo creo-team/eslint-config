@@ -22,11 +22,11 @@ Only `dist/` (eslint.config.js, rules.js, utils.js plus `.d.ts` and `.map`) plus
 
 Trunk-based. Bump `version` in `package.json`, push `main`.
 
-**Flow:** Push to main → `github-release.yaml` creates tag + GitHub Release → triggers `npm-publish.yaml` with the tag → publishes to npm.
+**Flow:** Push to main → `github-release.yaml` creates tag + GitHub Release (using `GH_PAT`) → `release: created` triggers `npm-publish.yaml` → publishes to npm.
 
 **Auth:** OIDC Trusted Publishing. Configure workflow filename `npm-publish.yaml` at npmjs.com → Package → Access → Trusted Publisher. No npm token needed.
 
-**Org repos:** If Release fails with "Resource not accessible by integration" (403), add repo secret `GH_PAT` — a PAT with `workflow` scope (or fine-grained Actions: Read and write). Repo → Settings → Secrets → New repository secret.
+**GH_PAT:** Required repo secret. The Release workflow uses `GH_PAT` so release events trigger Publish (events from `GITHUB_TOKEN` don't trigger other workflows). Create a PAT with `repo` scope → Repo → Settings → Secrets → New repository secret.
 
 **Dry runs:** Run `GitHub Release` or `npm Publish` manually from Actions with workflow_dispatch for preview.
 
