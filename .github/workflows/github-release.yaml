@@ -4,6 +4,13 @@ run-name: Release [${{ github.ref_name }}]
 on:
   push:
     branches: [main]
+  workflow_dispatch:
+    inputs:
+      dry-run:
+        description: 'Preview only (no tags, releases, or commits)'
+        required: false
+        default: false
+        type: boolean
 
 permissions:
   contents: write
@@ -23,3 +30,4 @@ jobs:
           version-source: package-json
           changelog: true
           if-exists: skip
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry-run }}
