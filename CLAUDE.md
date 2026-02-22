@@ -22,6 +22,12 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **Small functions** — keep `utils.js` helpers under 50 lines
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 
+### Documentation Standards
+
+- **Concise docs** — markdown files should be scannable, not walls of text. Link to code rather than duplicating it. State tenets, not tutorials
+- **Single source of truth** — every fact lives in one place. Don't repeat info across README, CLAUDE.md, and AGENTS.md — reference it
+- **Inline links liberally** — link to files, other docs, and sections. README opens with what it is and how to use it; details come after
+
 ## Rule Organization (rules.js)
 
 | Group | Purpose |

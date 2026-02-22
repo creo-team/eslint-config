@@ -41,6 +41,17 @@ alwaysApply: true
 - External packages first (require)
 - Internal: `./rules.js`, `./utils.js` (relative)
 
+## Documentation Standards
+
+Markdown docs (README, CLAUDE.md, AGENTS.md) follow these tenets:
+
+1. **Concise Over Comprehensive** — short, scannable sections. No walls of text. If it takes more than 30 seconds to find what you need, restructure
+2. **Won't Go Stale** — link to code instead of duplicating it. Inline-link to files in the repo rather than pasting examples that drift
+3. **Single Source of Truth** — every fact lives in one place. Don't repeat the same info across README, CLAUDE.md, and AGENTS.md — reference it
+4. **Tenets Over Tutorials** — state principles, not step-by-step walkthroughs. Tenets are numbered with a bold name: `1. **Name** — description`
+5. **Inline Links Liberally** — link to other docs, files, and sections. Make it easy to navigate without scrolling
+6. **Quick Start First** — README opens with what it is (one line) and how to use it (install + run). Details come after
+
 ## Creo Standards
 
 - **Releases**: `creo-team/action-release` via `github-release.yaml` workflow
