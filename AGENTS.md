@@ -24,6 +24,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 - **Types in `types.ts`** — never scatter type definitions across implementation files
 - **Defensive guards** — verify assumptions with `if` checks and logging
 - **Small functions** — single purpose, early returns; keep `utils.js` helpers focused
+- **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 ## Key Files
 

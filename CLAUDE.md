@@ -20,6 +20,7 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **Types in dedicated files** — interfaces, enums, and types live in `types.ts`
 - **Defensive guards** — double-check assumptions with `if` checks and logging before proceeding
 - **Small functions** — keep `utils.js` helpers under 50 lines
+- **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 
 ### Documentation Standards

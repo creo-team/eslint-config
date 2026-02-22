@@ -1,5 +1,8 @@
 # Cursor Rules
 
+## Versioning
+Increment `package.json` version with every push to `main`. Feature branches: one bump before merge.
+
 ## Commit Messages
 Conventional commits, one line, imperative mood:
 - feat: add new feature

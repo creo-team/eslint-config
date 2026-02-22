@@ -56,4 +56,5 @@ Markdown docs (README, CLAUDE.md, AGENTS.md) follow these tenets:
 
 - **Releases**: `creo-team/action-release` via `github-release.yaml` workflow
 - **Versions**: bare semver — never prefix with `v`
+- **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
 - **Commits**: conventional commits (`feat:`, `fix:`, `refactor:`), one change per commit
