@@ -120,36 +120,31 @@ Type-aware rules need a `tsconfig.json` (or `tsconfig.eslint.json`) that include
 Spread and override:
 
 ```javascript
+const { error, warn } = require('@creo-team/eslint-config/constants')
 const base = require('@creo-team/eslint-config')
-module.exports = [...base, { rules: { 'no-console': 'warn' } }]
+module.exports = [...base, { rules: { 'no-console': warn } }]
 ```
 
 ### Customizing rules
 
-Override any rule by spreading the base config and adding your own. Common customizations:
+Override any rule by spreading the base config and adding your own. Use constants from `@creo-team/eslint-config/constants` — no magic strings.
 
 **1. Naming convention — allow UPPER_SNAKE for constants**
 
-Default: `camelCase` for variables, `PascalCase` for types. To allow `UPPER_SNAKE` for constants:
+Default: `camelCase` for variables, `PascalCase` for types and enum members. To allow `UPPER_SNAKE` for constants:
 
 ```javascript
 const { createConfig } = require('@creo-team/eslint-config')
+const { error, FilesPattern, namingConvention } = require('@creo-team/eslint-config/constants')
 
 const base = createConfig()
 
 module.exports = [
   ...base,
   {
-    files: ['**/*.ts', '**/*.tsx'],
+    files: FilesPattern.TsAndTsx,
     rules: {
-      '@typescript-eslint/naming-convention': [
-        'error',
-        { format: ['camelCase'], selector: 'default' },
-        { format: ['camelCase', 'PascalCase'], selector: 'import' },
-        { format: ['camelCase', 'PascalCase', 'UPPER_CASE'], selector: 'variable' },
-        { format: ['PascalCase'], selector: 'typeLike' },
-        { format: ['PascalCase'], selector: 'enumMember' },
-      ],
+      '@typescript-eslint/naming-convention': [error, ...namingConvention.withUpperCaseVariables],
     },
   },
 ]
@@ -161,6 +156,7 @@ Install [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-un
 
 ```javascript
 const { createConfig } = require('@creo-team/eslint-config')
+const { error, FilenameCase, FilesPattern } = require('@creo-team/eslint-config/constants')
 const unicorn = require('eslint-plugin-unicorn')
 
 const base = createConfig()
@@ -168,9 +164,10 @@ const base = createConfig()
 module.exports = [
   ...base,
   {
+    files: FilesPattern.TsAndTsx,
     plugins: { unicorn },
     rules: {
-      'unicorn/filename-case': ['error', { case: 'kebabCase' }],
+      'unicorn/filename-case': [error, { case: FilenameCase.KebabCase }],
     },
   },
 ]
@@ -193,9 +190,9 @@ module.exports = [
 ]
 ```
 
-**4. Rule severity constants**
+**4. Rule severity and naming constants**
 
-Import `off`, `warn`, and `error` from `@creo-team/eslint-config/constants` for consistent, typo-free overrides:
+Import from `@creo-team/eslint-config/constants` for consistent, typo-free overrides:
 
 ```javascript
 const { createConfig } = require('@creo-team/eslint-config')
@@ -208,6 +205,38 @@ module.exports = [
       'no-console': warn,
       'jsdoc/require-jsdoc': off,
       'some-rule': [error, { option: true }],
+    },
+  },
+]
+```
+
+**5. Custom naming convention — build your own**
+
+Use `NamingFormat` and `NamingSelector` for full control:
+
+```javascript
+const { createConfig } = require('@creo-team/eslint-config')
+const {
+  error,
+  FilesPattern,
+  NamingFormat,
+  NamingSelector,
+} = require('@creo-team/eslint-config/constants')
+
+const base = createConfig()
+
+module.exports = [
+  ...base,
+  {
+    files: FilesPattern.TsAndTsx,
+    rules: {
+      '@typescript-eslint/naming-convention': [
+        error,
+        { format: [NamingFormat.CamelCase], selector: NamingSelector.Default },
+        { format: [NamingFormat.PascalCase], selector: NamingSelector.TypeLike },
+        { format: [NamingFormat.PascalCase], selector: NamingSelector.EnumMember },
+        // ... add more as needed
+      ],
     },
   },
 ]
@@ -309,6 +338,21 @@ structure: {
   appStructure: ['components', 'lib', 'utils', 'hooks', 'settings'],
 }
 ```
+
+
+## Constants (`@creo-team/eslint-config/constants`)
+
+Import rule values and presets — no magic strings:
+
+| Export | Use |
+|--------|-----|
+| `error`, `warn`, `off` | Rule severity |
+| `NamingFormat` | `CamelCase`, `PascalCase`, `UpperCase` |
+| `NamingSelector` | `Default`, `Import`, `Variable`, `TypeLike`, `EnumMember` |
+| `namingConvention` | `default`, `withUpperCaseVariables` presets |
+| `FilesPattern` | `TsAndTsx` — `['**/*.ts', '**/*.tsx']` |
+| `FilenameCase` | `KebabCase`, `CamelCase`, `PascalCase` (unicorn) |
+| `AppStructurePreset` | `NextJs`, `Express`, `React`, etc. |
 
 ## What’s included
 

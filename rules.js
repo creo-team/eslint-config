@@ -1,11 +1,4 @@
-/* eslint-disable @typescript-eslint/naming-convention */
-
-const { all, always, error, never, none, off, warn } = require('./constants.js')
-
-const { camelCase, pascalCase } = {
-	camelCase: 'camelCase',
-	pascalCase: 'PascalCase',
-}
+const { all, always, error, namingConvention, never, none, off, warn } = require('./constants.js')
 
 const maxClasses = 1
 const maxComplexity = 15
@@ -148,14 +141,7 @@ const tsEslint = {
 	'@typescript-eslint/consistent-type-exports': error,
 	'@typescript-eslint/consistent-type-imports': error,
 	'@typescript-eslint/dot-notation': error,
-	'@typescript-eslint/naming-convention': [
-		error,
-		{ format: [camelCase], selector: 'default' },
-		{ format: [camelCase, pascalCase], selector: 'import' },
-		{ format: [camelCase], selector: 'variable' },
-		{ format: [pascalCase], selector: 'typeLike' },
-		{ format: [pascalCase], selector: 'enumMember' },
-	],
+	'@typescript-eslint/naming-convention': [error, ...namingConvention.default],
 	'@typescript-eslint/no-explicit-any': 'warn',
 	'@typescript-eslint/no-extraneous-class': off,
 	'@typescript-eslint/no-unnecessary-condition': off,

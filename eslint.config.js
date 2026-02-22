@@ -8,7 +8,7 @@ const perfectionist = require('eslint-plugin-perfectionist')
 const prettier = require('eslint-plugin-prettier')
 const tsEslint = require('typescript-eslint')
 
-const { off } = require('./constants.js')
+const { namingConvention, off } = require('./constants.js')
 const { rules } = require('./rules.js')
 const { buildStructureConfig } = require('./structure.js')
 const { getTsConfigFile } = require('./utils.js')
@@ -66,6 +66,13 @@ function createConfig(options = {}) {
 
 	const configBlocks = [
 		{ ignores },
+		{
+			files: ['constants.js', 'rules.js'],
+			rules: {
+				'@typescript-eslint/naming-convention': off,
+				'perfectionist/sort-objects': off,
+			},
+		},
 		...(projectStructureBlock ? [projectStructureBlock] : []),
 		eslint.configs.recommended,
 		...tsEslint.configs.recommendedTypeChecked,
@@ -111,16 +118,16 @@ function createConfig(options = {}) {
 			},
 			rules: {
 				...rules,
-				'@typescript-eslint/naming-convention': [
-					'error',
-					{ format: ['camelCase'], selector: 'default' },
-					{ format: ['camelCase', 'PascalCase'], selector: 'import' },
-					{ format: ['camelCase', 'PascalCase'], selector: 'variable' },
-					{ format: ['PascalCase'], selector: 'typeLike' },
-					{ format: ['PascalCase'], selector: 'enumMember' },
-				],
+				'@typescript-eslint/naming-convention': ['error', ...namingConvention.default],
 				'@typescript-eslint/no-misused-spread': off,
 				'@typescript-eslint/no-unsafe-return': off,
+			},
+		},
+		{
+			files: ['constants.js', 'rules.js'],
+			rules: {
+				'@typescript-eslint/naming-convention': off,
+				'perfectionist/sort-objects': off,
 			},
 		},
 	]
