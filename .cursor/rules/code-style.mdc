@@ -14,6 +14,10 @@ alwaysApply: true
 - **Deduplicate ruthlessly** — shared logic in shared modules
 - **Simple over clever** — readable beats terse
 - **Descriptive names** — `maxLinesPerFile` not `max`
+- **Verb-driven function names** — prefer `get`, `remove`, `create`, `list`, `put`, `update` over `fetch`, `delete`, `post`. Name functions for what they do, not the HTTP method
+- **Types in dedicated files** — interfaces, enums, and types live in `types.ts`. Never scatter type definitions across implementation files
+- **Defensive guards** — double-check assumptions with `if` checks and logging. Don't trust that data is what you expect — verify and log when it isn't
+- **Generators when appropriate** — use generator functions for iteration, lazy evaluation, and streaming patterns where they simplify the code
 
 ## Naming Conventions
 

@@ -20,6 +20,9 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 - **No magic values in rule config** — use named constants (e.g. `error`, `off`, `maxLinesPerFile`) in `rules.js`
 - **Deduplicate ruthlessly** — shared logic in shared modules
 - **Simple over clever** — readable beats terse
+- **Verb-driven names** — `get`, `remove`, `create`, `list` over `fetch`, `delete`, `post`
+- **Types in `types.ts`** — never scatter type definitions across implementation files
+- **Defensive guards** — verify assumptions with `if` checks and logging
 - **Small functions** — single purpose, early returns; keep `utils.js` helpers focused
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 ## Key Files

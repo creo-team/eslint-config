@@ -16,6 +16,9 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **No magic values in rule config** — in `rules.js`, use constants (`error`, `off`, `always`, `maxLinesPerFile`, `maxComplexity`, etc.) for rule severity and options
 - **Deduplicate ruthlessly** — shared logic in shared modules
 - **Simple over clever** — readable beats terse
+- **Verb-driven function names** — prefer `get`, `remove`, `create`, `list`, `put`, `update` over `fetch`, `delete`, `post`
+- **Types in dedicated files** — interfaces, enums, and types live in `types.ts`
+- **Defensive guards** — double-check assumptions with `if` checks and logging before proceeding
 - **Small functions** — keep `utils.js` helpers under 50 lines
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 
