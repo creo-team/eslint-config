@@ -19,6 +19,10 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 - **No narration comments** — code speaks for itself. Only comment non-obvious intent or trade-offs. No section banners
 - **No magic values in rule config** — use named constants (e.g. `error`, `off`, `maxLinesPerFile`) in `rules.js`
 - **Deduplicate ruthlessly** — shared logic in shared modules
+- **TypeScript only** — no `.js`/`.jsx` in application code. Strict mode enabled
+- **Turbopack** — use `--turbopack` flag for Next.js dev and build (where applicable)
+- **Latest stable versions** — stay current with Next.js, React, and dependencies. Adopt new features early
+- **Skeleton loading** — every async boundary needs a loading state. Use `loading.tsx`, `Suspense` fallbacks, and skeleton UI. No blank screens
 - **Simple over clever** — readable beats terse
 - **Verb-driven names** — `get`, `remove`, `create`, `list` over `fetch`, `delete`, `post`
 - **Types in `types.ts`** — never scatter type definitions across implementation files

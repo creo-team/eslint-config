@@ -15,6 +15,10 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **No narration comments** — code speaks for itself. Only comment non-obvious intent or trade-offs. No section banners
 - **No magic values in rule config** — in `rules.js`, use constants (`error`, `off`, `always`, `maxLinesPerFile`, `maxComplexity`, etc.) for rule severity and options
 - **Deduplicate ruthlessly** — shared logic in shared modules
+- **TypeScript only** — no `.js`/`.jsx` in application code. Strict mode enabled
+- **Turbopack** — use `--turbopack` flag for Next.js dev and build (where applicable)
+- **Latest stable versions** — stay current with Next.js, React, and dependencies. Adopt new features early
+- **Skeleton loading** — every async boundary needs a loading state. Use `loading.tsx`, `Suspense` fallbacks, and skeleton UI. No blank screens
 - **Simple over clever** — readable beats terse
 - **Verb-driven function names** — prefer `get`, `remove`, `create`, `list`, `put`, `update` over `fetch`, `delete`, `post`
 - **Types in dedicated files** — interfaces, enums, and types live in `types.ts`
