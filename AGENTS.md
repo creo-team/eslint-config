@@ -15,9 +15,13 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 
 ## Core Rules
 
-- **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
+- **Never nest** — early returns, flat code. If you're indenting more than once, refactor
+- **No narration comments** — code speaks for itself. Only comment non-obvious intent or trade-offs. No section banners
 - **No magic values in rule config** — use named constants (e.g. `error`, `off`, `maxLinesPerFile`) in `rules.js`
+- **Deduplicate ruthlessly** — shared logic in shared modules
+- **Simple over clever** — readable beats terse
 - **Small functions** — single purpose, early returns; keep `utils.js` helpers focused
+- **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 ## Key Files
 
 | File | Purpose |

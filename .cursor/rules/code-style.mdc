@@ -8,9 +8,12 @@ alwaysApply: true
 
 ## Core Principles
 
+- **Never nest** — early returns, flat code. If you're indenting more than once, refactor
+- **No narration comments** — code speaks for itself. Only comment non-obvious intent or trade-offs. Never `// Get the file`, `// Return result`, or section banners
 - **No magic values in rule config** — use named constants in `rules.js` (e.g. `error`, `off`, `maxLinesPerFile`, `maxComplexity`)
-- **Small functions** — single purpose, early returns; keep utils.js helpers focused
-- **Descriptive names** — e.g. `maxLinesPerFile` not `max`
+- **Deduplicate ruthlessly** — shared logic in shared modules
+- **Simple over clever** — readable beats terse
+- **Descriptive names** — `maxLinesPerFile` not `max`
 
 ## Naming Conventions
 
@@ -34,6 +37,8 @@ alwaysApply: true
 - External packages first (require)
 - Internal: `./rules.js`, `./utils.js` (relative)
 
-## Commits
+## Creo Standards
 
-Conventional commits: `feat(scope):`, `fix(scope):`, `refactor(scope):`. One change per commit.
+- **Releases**: `creo-team/action-release` via `github-release.yaml` workflow
+- **Versions**: bare semver — never prefix with `v`
+- **Commits**: conventional commits (`feat:`, `fix:`, `refactor:`), one change per commit

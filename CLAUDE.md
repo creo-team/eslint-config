@@ -11,8 +11,12 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 
 ## Key Conventions
 
+- **Never nest** — early returns, flat code. If you're indenting more than once, refactor
+- **No narration comments** — code speaks for itself. Only comment non-obvious intent or trade-offs. No section banners
 - **No magic values in rule config** — in `rules.js`, use constants (`error`, `off`, `always`, `maxLinesPerFile`, `maxComplexity`, etc.) for rule severity and options
-- **Small functions** — keep `utils.js` helpers under 50 lines; early returns
+- **Deduplicate ruthlessly** — shared logic in shared modules
+- **Simple over clever** — readable beats terse
+- **Small functions** — keep `utils.js` helpers under 50 lines
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 
 ## Rule Organization (rules.js)
