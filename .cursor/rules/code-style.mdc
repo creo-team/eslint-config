@@ -45,6 +45,11 @@ alwaysApply: true
 - External packages first (require)
 - Internal: `./rules.js`, `./utils.js` (relative)
 
+## Imports and Exports
+
+- **Named imports** — prefer `{ thing } from 'thing'` over `import *`. Never use `import *` when named imports exist.
+- **Named exports** — prefer named exports over `export default` in TS and JS. Exception: framework-convention files where default is required.
+
 ## Documentation Standards
 
 Markdown docs (README, CLAUDE.md, AGENTS.md) follow these tenets:

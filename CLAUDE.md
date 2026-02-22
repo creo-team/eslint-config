@@ -22,6 +22,8 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **Simple over clever** — readable beats terse
 - **Verb-driven function names** — prefer `get`, `remove`, `create`, `list`, `put`, `update` over `fetch`, `delete`, `post`
 - **Types in dedicated files** — interfaces, enums, and types live in `types.ts`
+- **Named imports** — prefer `{ thing } from 'thing'` over `import *`. Never use `import *` when named imports exist
+- **Named exports** — prefer named exports over `export default`. Exception: framework-convention files where default is required
 - **Defensive guards** — double-check assumptions with `if` checks and logging before proceeding
 - **Small functions** — keep `utils.js` helpers under 50 lines
 - **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
