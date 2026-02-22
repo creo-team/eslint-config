@@ -1,16 +1,12 @@
 # Filename must match npm Trusted Publisher config: npm-publish.yaml
 name: Publish
-run-name: Publish [${{ github.event.inputs.tag || github.event.workflow_run.head_sha }}]
+run-name: Publish [${{ github.event.inputs.tag }}]
 
 on:
-  workflow_run:
-    workflows: [Release]
-    types: [completed]
-    branches: [main]
   workflow_dispatch:
     inputs:
       tag:
-        description: 'Tag to publish (e.g. 2.5.1) — for manual/retry'
+        description: 'Tag to publish (e.g. 2.5.2)'
         required: true
         type: string
 
@@ -20,13 +16,12 @@ permissions:
 
 jobs:
   publish:
-    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.inputs.tag || github.event.workflow_run.head_sha }}
+          ref: ${{ github.event.inputs.tag }}
 
       - uses: actions/setup-node@v4
         with:
