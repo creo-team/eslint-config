@@ -24,7 +24,7 @@ Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, cr
 
 ## Architecture
 
-- **rules.js** — Constants and rule objects; no magic values; section headers per group. Exports `rules`, `jsDoc`, `prettier`, etc.
+- **rules.js** — Constants and rule objects; no magic values. Exports `rules`, `jsDoc`, `prettier`, etc.
 - **utils.js** — Config resolution and debug logging; used by eslint.config.js at load time.
 - **eslint.config.js** — `createConfig({ ignores?, tsconfig? })`; single flat config; ignores, recommended configs, file overrides, plugins, settings.
 - **test/** — Vitest (utils, ESLint fixture); `*.test.mjs`.

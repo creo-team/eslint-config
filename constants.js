@@ -16,26 +16,14 @@
  * ]
  */
 
-// ============================================================================
-// Rule severity levels
-// ============================================================================
-
 const off = 'off'
 const warn = 'warn'
 const error = 'error'
-
-// ============================================================================
-// Common option values (for rules that accept 'always' | 'never' | etc.)
-// ============================================================================
 
 const always = 'always'
 const never = 'never'
 const none = 'none'
 const all = 'all'
-
-// ============================================================================
-// @typescript-eslint/naming-convention — format and selector values
-// ============================================================================
 
 const NamingFormat = {
 	CamelCase: 'camelCase',
@@ -50,10 +38,6 @@ const NamingSelector = {
 	TypeLike: 'typeLike',
 	Variable: 'variable',
 }
-
-// ============================================================================
-// Naming convention presets — use with [error, ...preset]
-// ============================================================================
 
 const namingConventionDefault = [
 	{ format: [NamingFormat.CamelCase], selector: NamingSelector.Default },
@@ -79,27 +63,15 @@ const namingConvention = {
 	withUpperCaseVariables: namingConventionWithUpperCaseVariables,
 }
 
-// ============================================================================
-// File patterns — common globs for rule overrides
-// ============================================================================
-
 const FilesPattern = {
 	TsAndTsx: ['**/*.ts', '**/*.tsx'],
 }
-
-// ============================================================================
-// Unicorn filename-case (when using eslint-plugin-unicorn)
-// ============================================================================
 
 const FilenameCase = {
 	CamelCase: 'camelCase',
 	KebabCase: 'kebabCase',
 	PascalCase: 'pascalCase',
 }
-
-// ============================================================================
-// App structure presets (for createConfig structure option)
-// ============================================================================
 
 const AppStructurePreset = {
 	Express: 'express',

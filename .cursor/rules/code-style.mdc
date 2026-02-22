@@ -9,7 +9,6 @@ alwaysApply: true
 ## Core Principles
 
 - **No magic values in rule config** — use named constants in `rules.js` (e.g. `error`, `off`, `maxLinesPerFile`, `maxComplexity`)
-- **Section headers** — `// ============================================================================` above each rule group in rules.js
 - **Small functions** — single purpose, early returns; keep utils.js helpers focused
 - **Descriptive names** — e.g. `maxLinesPerFile` not `max`
 

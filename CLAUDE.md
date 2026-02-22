@@ -12,7 +12,6 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 ## Key Conventions
 
 - **No magic values in rule config** — in `rules.js`, use constants (`error`, `off`, `always`, `maxLinesPerFile`, `maxComplexity`, etc.) for rule severity and options
-- **Section headers** — `// ============================================================================` style comments above each rule group
 - **Small functions** — keep `utils.js` helpers under 50 lines; early returns
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 

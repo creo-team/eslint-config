@@ -1,10 +1,5 @@
 'use strict'
 
-// ============================================================================
-// Structure presets for eslint-plugin-project-structure (optional peer dep)
-// Use createConfig({ structure: { workspaces, appStructure } }) to lock in layout.
-// ============================================================================
-
 /**
  * Builds root structure for monorepo with locked-in workspace dirs.
  * @param {string[]} workspaces - Top-level dirs (e.g. ['nextjs', 'aws/infra', 'shared']).
