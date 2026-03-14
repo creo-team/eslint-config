@@ -26,7 +26,7 @@ Shared ESLint configuration for **Creo** projects. Used by vecta, photos, creo, 
 - **Named exports** — prefer named exports over `export default`. Exception: framework-convention files where default is required
 - **Defensive guards** — double-check assumptions with `if` checks and logging before proceeding
 - **Small functions** — keep `utils.js` helpers under 50 lines
-- **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
+- **Version bumps** — increment `package.json` version with every commit. Patch for fixes, minor for features, major for breaking changes
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
 
 ### Documentation Standards
