@@ -39,6 +39,11 @@ alwaysApply: true
 | `rules.js` | Rule groups and merged `rules`; exports for config |
 | `utils.js` | Helpers for config (getTsConfigFile, debug); Node only |
 | `eslint.config.js` | Flat config entry; requires rules and utils |
+| `docs/` | ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS |
+
+## Prettier/@stylistic Boundary
+
+Prettier handles ALL formatting via `prettier/prettier: error`. The `@stylistic/*` plugin is only used for blank-line structure rules (lines-around-comment, lines-between-class-members). Never add `@stylistic/*` formatting rules — they are redundant with Prettier.
 
 ## Imports (rules.js / eslint.config.js)
 

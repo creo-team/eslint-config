@@ -1,6 +1,6 @@
 # @creo-team/eslint-config
 
-ESLint flat config for TypeScript/React: strict type-checking, Prettier, JSDoc, complexity limits, and no magic numbers. One style and one set of rules so code stays consistent and reviewable—and so tools like Cursor and Claude can fix and generate code that matches. Works with the [ESLint MCP server](https://eslint.org/docs/latest/use/mcp).
+ESLint flat config for TypeScript/React: strict type-checking, Prettier, JSDoc, complexity limits, async correctness, and no magic numbers. One style and one set of rules so code stays consistent and reviewable — and so tools like Cursor and Claude can fix and generate code that matches. Works with the [ESLint MCP server](https://eslint.org/docs/latest/use/mcp).
 
 [![npm version](https://img.shields.io/npm/v/@creo-team/eslint-config.svg)](https://www.npmjs.com/package/@creo-team/eslint-config)
 [![License](https://img.shields.io/github/license/creo-team/eslint-config)](./LICENSE)
@@ -79,8 +79,8 @@ module.exports = createConfig({
     "fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@creo-team/eslint-config": "^2.4.1",
-    "eslint": "^9.39.3"
+    "@creo-team/eslint-config": "^3.0.0",
+    "eslint": "^9.39.4"
   }
 }
 ```
@@ -252,13 +252,16 @@ module.exports = [
 
 | Rule / area | Benefit |
 |-------------|--------|
-| **Strict type-checked** (typescript-eslint) | Catches type errors and unsafe `any` before runtime. Fewer “works until it doesn’t” bugs. |
-| **JSDoc** (params, returns, descriptions) | Public API is self-describing. IDE hints and “go to definition” are useful without opening the implementation. |
-| **complexity (max 15)** | Branches and conditionals stay bounded. Functions stay testable and easier to reason about. |
-| **max-lines-per-function (200)** | Long functions get split. Easier to name, test, and reuse. |
-| **no-magic-numbers (warn)** | Literals become named constants. Changing a threshold or status code happens in one place. |
-| **Import rules** (no-cycle, order, resolver) | No circular deps; consistent import order; TypeScript path resolution works. |
-| **Prettier** | One formatter. No style churn in code review. |
+| **Strict type-checked** (typescript-eslint) | Catches type errors and unsafe `any` before runtime. Fewer “works until it doesn’t” bugs |
+| **JSDoc** (params, returns, descriptions) | Public API is self-describing. IDE hints and “go to definition” work without opening the implementation |
+| **complexity (max 15)** | Branches and conditionals stay bounded. Functions stay testable and easier to reason about |
+| **max-lines-per-function (200)** | Long functions get split. Easier to name, test, and reuse |
+| **no-magic-numbers (warn)** | Literals become named constants. Changing a threshold or status code happens in one place |
+| **no-promise-executor-return** | Catches returning values from Promise executors — always a bug |
+| **no-await-in-loop (warn)** | Flags sequential awaits that should be `Promise.all()` |
+| **no-console (warn)** | Catches leftover debug logging, especially from AI-generated code |
+| **Import rules** (no-cycle, order, resolver) | No circular deps; consistent import order; TypeScript path resolution works |
+| **Prettier** | One formatter. No style churn in code review |
 
 **LLM- and assistant-friendly.** Cursor, Claude, and other tools behave better when the codebase is consistent and documented. This config enforces one style (so generated code matches), requires JSDoc on public surfaces (so the model has context), and keeps complexity and magic numbers in check (so suggestions stay in the same style and refactors are local). Use the [ESLint MCP server](https://eslint.org/docs/latest/use/mcp) so the assistant can run ESLint and fix violations in your editor.
 
@@ -358,10 +361,17 @@ Import rule values and presets — no magic strings:
 
 - **TypeScript ESLint** — recommended + strict type-checked, stylistic
 - **Prettier** — formatting (tabs, 120 print width, no semicolons)
-- **JSDoc** — require descriptions, params, returns
+- **JSDoc** — require descriptions, params, returns on declarations/methods (not arrow functions)
 - **Import** — order, no cycles, resolver TypeScript
 - **Perfectionist** — alphabetical sort (imports sort disabled)
-- **Quality** — complexity (max 15), max-lines, max-lines-per-function, no-magic-numbers (warn)
+- **Async correctness** — no-promise-executor-return (error), no-await-in-loop (warn)
+- **Quality** — complexity (max 15), max-lines, max-lines-per-function, no-magic-numbers (warn), no-console (warn)
+
+## Docs
+
+- [ESLINT-STANDARDS.md](./docs/ESLINT-STANDARDS.md) — architecture and rule philosophy
+- [ESLINT-AUDIT.md](./docs/ESLINT-AUDIT.md) — v3.0.0 audit findings and decisions
+- [AI-CODE-STANDARDS.md](./docs/AI-CODE-STANDARDS.md) — guidelines for AI assistants
 
 ## Release flow
 

@@ -21,12 +21,18 @@ Conventional commits, one line, imperative mood:
 7. Turbopack — use --turbopack for Next.js dev and build
 8. Latest stable — stay current with Next.js, React, dependencies
 9. Skeleton loading — every async boundary needs a loading state
+10. Prettier handles formatting — never add @stylistic/* formatting rules
+
+## Prettier/@stylistic Boundary
+Prettier handles ALL formatting via `prettier/prettier: error`. The @stylistic plugin is only for blank-line structure rules (lines-around-comment, lines-between-class-members). Never add @stylistic spacing, indent, quotes, or bracket rules.
 
 ## File Roles
 rules.js       → Rule groups (prettier, jsDoc, stylisticTs, tsEslint); export merged rules
 utils.js       → getTsConfigFile, debug; Node-only, no undef disable
 eslint.config.js → Flat config; plugins, globals (module, process, require), rules
+docs/          → ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS
 
 ## Verification
 npm run lint   — ESLint
-npm run build — compile to dist/
+npm run build  — compile to dist/
+npm test       — Vitest + lint

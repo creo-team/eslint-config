@@ -4,7 +4,7 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 
 ## Project
 
-**@creo-team/eslint-config** — shared ESLint configuration for Creo projects. TypeScript/React, Prettier, JSDoc, stylistic rules, complexity, no-magic-numbers. Exports default flat config and `createConfig(options)` for customization. Optional **projectService** for monorepos (one root config, nearest tsconfig per file); single-repo or per-workspace configs use default.
+**@creo-team/eslint-config** — shared ESLint configuration for Creo projects. TypeScript/React, Prettier, JSDoc, stylistic rules, async correctness, complexity, no-magic-numbers. Exports default flat config and `createConfig(options)` for customization. Optional **projectService** for monorepos (one root config, nearest tsconfig per file); single-repo or per-workspace configs use default.
 
 ## Required Reading
 
@@ -12,6 +12,8 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 |------|----------|
 | All changes | [CLAUDE.md](CLAUDE.md) — single source of truth for conventions |
 | Contributing | [CONTRIBUTING.md](CONTRIBUTING.md) — setup, commands, release |
+| Rule philosophy | [docs/ESLINT-STANDARDS.md](docs/ESLINT-STANDARDS.md) — architecture and severity policy |
+| AI code patterns | [docs/AI-CODE-STANDARDS.md](docs/AI-CODE-STANDARDS.md) — what AI code should avoid |
 
 ## Core Rules
 
@@ -30,16 +32,20 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 - **Named exports** — prefer named exports over `export default` (except framework-convention files)
 - **Defensive guards** — verify assumptions with `if` checks and logging
 - **Small functions** — single purpose, early returns; keep `utils.js` helpers focused
+- **Prettier handles formatting** — never add `@stylistic/*` formatting rules. Only blank-line structure rules belong in `@stylistic`
 - **Version bumps** — increment `package.json` version with every push to `main`. Feature branches: one bump before merge
 - **Conventional commits** — `feat(scope):`, `fix(scope):`, `refactor(scope):`; one change per commit
+
 ## Key Files
 
 | File | Purpose |
 |------|---------|
-| `rules.js` | Rule groups: commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint; merged into `rules`; includes complexity, no-magic-numbers |
+| `rules.js` | Rule groups: commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint; merged into `rules`; includes complexity, no-magic-numbers, async correctness, no-console |
 | `utils.js` | Helpers: `debug()`, `getTsConfigFile()`; Node globals via config |
 | `eslint.config.js` | Exports default `createConfig()` and `createConfig`; no project-structure plugin |
+| `constants.js` | Severity levels, naming convention presets |
 | `examples/monorepo/` | Monorepo example (root config, projectService); run `npm install && npm run lint` to validate |
+| `docs/` | ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS |
 
 ## Verification
 

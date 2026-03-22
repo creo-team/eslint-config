@@ -8,6 +8,7 @@ const { dirname, join } = require('path')
  */
 function debug(message) {
 	if (process.env.ESLINT_DEBUG) {
+		// eslint-disable-next-line no-console -- intentional debug logger
 		console.debug(`[Eslint]: ${message}`)
 	}
 }

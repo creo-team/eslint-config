@@ -6,13 +6,15 @@ alwaysApply: true
 
 # ESLint Config Project
 
-Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, creo, and others. Flat config; TypeScript ESLint, Prettier, JSDoc, stylistic, import, perfectionist; complexity, no-magic-numbers. Exports default and `createConfig(options)`; no project-structure plugin.
+Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, creo, and others. Flat config; TypeScript ESLint, Prettier, JSDoc, stylistic, import, perfectionist; async correctness, complexity, no-magic-numbers, no-console. Exports default and `createConfig(options)`; no project-structure plugin.
 
 ## Required Reading
 
 - `CLAUDE.md` — comprehensive project instructions
 - `CONTRIBUTING.md` — setup, commands, release
 - `AGENTS.md` — agent quick reference
+- `docs/ESLINT-STANDARDS.md` — rule philosophy and severity policy
+- `docs/AI-CODE-STANDARDS.md` — AI code patterns
 
 ## Key Resources
 
@@ -21,6 +23,8 @@ Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, cr
 | `rules.js` | Rule groups (commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint); merged `rules` export |
 | `utils.js` | `getTsConfigFile()`, `debug()`; Node globals via config |
 | `eslint.config.js` | Exports default and `createConfig`; flat config; plugins, languageOptions, rules |
+| `constants.js` | Severity levels, naming convention presets |
+| `docs/` | ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS |
 
 ## Architecture
 
@@ -28,6 +32,10 @@ Shared ESLint configuration for **Creo** projects. Consumed by vecta, photos, cr
 - **utils.js** — Config resolution and debug logging; used by eslint.config.js at load time.
 - **eslint.config.js** — `createConfig({ ignores?, tsconfig? })`; single flat config; ignores, recommended configs, file overrides, plugins, settings.
 - **test/** — Vitest (utils, ESLint fixture); `*.test.mjs`.
+
+## Prettier/@stylistic Boundary
+
+Prettier handles ALL formatting via `prettier/prettier: error`. The `@stylistic/*` plugin is only used for blank-line structure rules (lines-around-comment, lines-between-class-members). Never add `@stylistic/*` formatting rules.
 
 ## Verification
 

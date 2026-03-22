@@ -66,13 +66,6 @@ function createConfig(options = {}) {
 
 	const configBlocks = [
 		{ ignores },
-		{
-			files: ['constants.js', 'rules.js'],
-			rules: {
-				'@typescript-eslint/naming-convention': off,
-				'perfectionist/sort-objects': off,
-			},
-		},
 		...(projectStructureBlock ? [projectStructureBlock] : []),
 		eslint.configs.recommended,
 		...tsEslint.configs.recommendedTypeChecked,
@@ -100,10 +93,7 @@ function createConfig(options = {}) {
 				jsdoc,
 				prettier,
 			},
-			rules: {
-				...rules,
-				'@typescript-eslint/no-misused-spread': off,
-			},
+			rules,
 			settings: {
 				'import/resolver': {
 					typescript: {},
@@ -119,7 +109,6 @@ function createConfig(options = {}) {
 			rules: {
 				...rules,
 				'@typescript-eslint/naming-convention': ['error', ...namingConvention.default],
-				'@typescript-eslint/no-misused-spread': off,
 				'@typescript-eslint/no-unsafe-return': off,
 			},
 		},

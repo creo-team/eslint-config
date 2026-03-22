@@ -1,16 +1,17 @@
-const { all, always, error, namingConvention, never, none, off, warn } = require('./constants.js')
+const { all, always, error, namingConvention, never, off, warn } = require('./constants.js')
 
 const maxClasses = 1
 const maxComplexity = 15
 const maxLinesPerFile = 400
 const maxLinesPerFunction = 200
-const maxConsecutiveEmptyLines = 1
 const printWidth = 120
 const tabWidth = 4
 const newlineCount = 1
 
 /*
  * JSDoc rules.
+ * Require JSDoc on function declarations, class expressions, and methods.
+ * Arrow functions are exempt — React components and inline callbacks don't need JSDoc.
  * https://github.com/gajus/eslint-plugin-jsdoc/tree/main/docs/rules
  */
 const jsDoc = {
@@ -20,7 +21,7 @@ const jsDoc = {
 		error,
 		{
 			require: {
-				ArrowFunctionExpression: true,
+				ArrowFunctionExpression: false,
 				ClassDeclaration: false,
 				ClassExpression: true,
 				FunctionDeclaration: true,
@@ -40,7 +41,8 @@ const jsDoc = {
 }
 
 /*
- * Prettier handles formatting, especially things like max line length.
+ * Prettier handles all formatting via prettier/prettier rule.
+ * These rules disable ESLint/stylistic rules that conflict with Prettier.
  * https://prettier.io/docs/en/options.html
  */
 const prettier = {
@@ -67,30 +69,12 @@ const prettier = {
 }
 
 /*
- * Unified "@stylistic/" rules (replaces deprecated @stylistic/ts)
- * Modern stylistic rules with better React/Next.js support
- * For more details, check: https://eslint.style/packages/default
+ * Stylistic rules that Prettier does NOT handle.
+ * Blank-line enforcement and class member structure.
+ * All spacing/formatting rules are handled by Prettier — do not add them here.
+ * https://eslint.style/packages/default
  */
 const stylisticTs = {
-	'@stylistic/block-spacing': [error, always],
-	'@stylistic/brace-style': [error, '1tbs'],
-	'@stylistic/comma-dangle': [error, 'always-multiline'],
-	'@stylistic/comma-spacing': [error, { before: false }],
-	'@stylistic/function-call-spacing': [error, never],
-	'@stylistic/key-spacing': [
-		error,
-		{
-			afterColon: true,
-			beforeColon: false,
-		},
-	],
-	'@stylistic/keyword-spacing': [
-		error,
-		{
-			after: true,
-			before: true,
-		},
-	],
 	'@stylistic/lines-around-comment': [
 		error,
 		{
@@ -114,23 +98,10 @@ const stylisticTs = {
 		},
 		{ exceptAfterSingleLine: true },
 	],
-	'@stylistic/member-delimiter-style': [
-		error,
-		{
-			multiline: { delimiter: none },
-		},
-	],
-	'@stylistic/no-extra-parens': [error, 'functions'],
-	'@stylistic/padding-line-between-statements': off,
-	'@stylistic/quote-props': [error, 'as-needed'],
-	'@stylistic/semi': [error, never],
-	'@stylistic/space-before-blocks': [error, always],
-	'@stylistic/space-infix-ops': error,
-	'@stylistic/type-annotation-spacing': error,
 }
 
 /*
- * TypeScript-specific ESLint rules
+ * TypeScript, import, and code-quality rules.
  * https://typescript-eslint.io/rules/
  */
 const tsEslint = {
@@ -142,11 +113,11 @@ const tsEslint = {
 	'@typescript-eslint/consistent-type-imports': error,
 	'@typescript-eslint/dot-notation': error,
 	'@typescript-eslint/naming-convention': [error, ...namingConvention.default],
-	'@typescript-eslint/no-explicit-any': 'warn',
+	'@typescript-eslint/no-explicit-any': warn,
 	'@typescript-eslint/no-extraneous-class': off,
-	'@typescript-eslint/no-unnecessary-condition': off,
+	'@typescript-eslint/no-misused-spread': off,
+	'@typescript-eslint/no-unnecessary-condition': warn,
 
-	// Better React/Next.js support
 	'@typescript-eslint/no-unsafe-argument': warn,
 	'@typescript-eslint/no-unsafe-assignment': off,
 	'@typescript-eslint/no-unsafe-call': off,
@@ -156,7 +127,6 @@ const tsEslint = {
 	'@typescript-eslint/unbound-method': off,
 	complexity: [error, { max: maxComplexity }],
 	'dot-notation': off,
-	'eol-last': [error, always],
 	'import/first': error,
 	'import/named': error,
 	'import/newline-after-import': [error, { count: newlineCount }],
@@ -174,7 +144,8 @@ const tsEslint = {
 	'max-lines': [error, { max: maxLinesPerFile, skipBlankLines: true, skipComments: true }],
 	'max-lines-per-function': [error, maxLinesPerFunction],
 	'newline-before-return': error,
-	'no-inline-comments': error,
+	'no-await-in-loop': warn,
+	'no-console': warn,
 	'no-magic-numbers': [
 		warn,
 		{
@@ -184,8 +155,7 @@ const tsEslint = {
 			ignoreDefaultValues: true,
 		},
 	],
-	'no-mixed-spaces-and-tabs': error,
-	'no-multiple-empty-lines': [error, { max: maxConsecutiveEmptyLines }],
+	'no-promise-executor-return': error,
 	'no-restricted-imports': off,
 	'no-unsafe-member-access': off,
 	'object-curly-newline': off,
