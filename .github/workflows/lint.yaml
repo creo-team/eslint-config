@@ -1,13 +1,15 @@
-name: Lint
-run-name: Lint [${{ github.ref_name }}]
+name: Test
+run-name: Test [${{ github.ref_name }}]
 
 on:
   push:
     branches: [main]
+  pull_request:
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  lint:
+  test:
     runs-on: creo-latest
     steps:
       - uses: actions/checkout@v4
@@ -18,4 +20,5 @@ jobs:
           node-version: '24'
           cache: 'npm'
       - run: npm ci
-      - run: npm run lint
+      - run: npm test
+      - run: npm run build

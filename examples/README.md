@@ -40,5 +40,16 @@ See [rule-overrides/README.md](./rule-overrides/README.md).
 - `vanilla.ts` — plain TypeScript
 - `pilot.ts` — example module
 - `beekeeper.tsx` — React component
+- `async-patterns.ts` — correct async/Promise patterns (v3.0.0: `Promise.all` instead of await-in-loop, proper Promise constructors, no console)
 
 These are linted by the main config when running `npm run lint` from the repo root.
+
+## Violation fixtures
+
+`test/fixtures/violations/` contains intentionally bad code to verify that v3.0.0 rules catch violations:
+
+- `promise-executor-return.ts` — triggers `no-promise-executor-return` (error)
+- `await-in-loop.ts` — triggers `no-await-in-loop` (warn)
+- `console-usage.ts` — triggers `no-console` (warn)
+
+These are exercised by the `violation detection` test suite in `test/eslint-fixture.test.mjs`.
