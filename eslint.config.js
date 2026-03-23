@@ -2,7 +2,8 @@
 
 const eslint = require('@eslint/js')
 const pluginStylistic = require('@stylistic/eslint-plugin')
-const pluginImport = require('eslint-plugin-import')
+const pluginImport = require('eslint-plugin-import-x')
+const { createTypeScriptImportResolver } = require('eslint-import-resolver-typescript')
 const jsdoc = require('eslint-plugin-jsdoc')
 const perfectionist = require('eslint-plugin-perfectionist')
 const prettier = require('eslint-plugin-prettier')
@@ -89,15 +90,13 @@ function createConfig(options = {}) {
 			},
 			plugins: {
 				'@stylistic': pluginStylistic,
-				import: pluginImport,
+				'import-x': pluginImport,
 				jsdoc,
 				prettier,
 			},
 			rules,
 			settings: {
-				'import/resolver': {
-					typescript: {},
-				},
+				'import-x/resolver-next': [createTypeScriptImportResolver()],
 			},
 		},
 		{
