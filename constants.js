@@ -16,14 +16,15 @@
  * ]
  */
 
-const off = 'off'
-const warn = 'warn'
-const error = 'error'
+// `const` keeps literal types (e.g. 'error') in the emitted .d.ts, so severities type-check as ESLint rule levels.
+const off = /** @type {const} */ ('off')
+const warn = /** @type {const} */ ('warn')
+const error = /** @type {const} */ ('error')
 
-const always = 'always'
-const never = 'never'
-const none = 'none'
-const all = 'all'
+const always = /** @type {const} */ ('always')
+const never = /** @type {const} */ ('never')
+const none = /** @type {const} */ ('none')
+const all = /** @type {const} */ ('all')
 
 const NamingFormat = {
 	CamelCase: 'camelCase',
