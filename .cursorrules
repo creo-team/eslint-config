@@ -30,9 +30,11 @@ Prettier handles ALL formatting via `prettier/prettier: error`. The @stylistic p
 rules.js       → Rule groups (prettier, jsDoc, stylisticTs, tsEslint); export merged rules
 utils.js       → getTsConfigFile, debug; Node-only, no undef disable
 eslint.config.js → Flat config; plugins, globals (module, process, require), rules
+index.mjs      → ESM entry; re-exports default and createConfig
 docs/          → ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS
 
 ## Verification
 npm run lint   — ESLint
 npm run build  — compile to dist/
 npm test       — Vitest + lint
+npm run test:types — type-check consumer usage against dist/

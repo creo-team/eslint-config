@@ -12,11 +12,20 @@ npm install
 - `npm run fix` — auto-fix lint issues
 - `npm run build` — compile to `dist/`
 - `npm test` — run Vitest then lint
+- `npm run test:types` — type-check consumer usage against `dist/` (run after `build`)
+- `npm run typecheck` — TypeScript 7 check without emitting
 - `npm run test:watch` — Vitest watch mode
+
+## TypeScript toolchain
+
+Two TypeScripts are installed side by side ([why](CLAUDE.md#package-update-policy)):
+
+- `tsc` is TypeScript 7 (`@typescript/native`); `build`, `typecheck`, and `test:types` use it.
+- `typescript` is the TypeScript 6 API (`@typescript/typescript6`), which typescript-eslint loads; its compiler is `tsc6`.
 
 ## What gets published
 
-Only `dist/` (eslint.config.js, rules.js, utils.js plus `.d.ts` and `.map`) plus `package.json`, `README.md`, and `LICENSE`. Tests, examples, source, and configs are not published. See `files` in `package.json`.
+Only `dist/` (compiled entry points, `.d.ts`/`.d.mts` declarations, and source maps) plus `package.json`, `README.md`, and `LICENSE`. Tests, examples, source, and configs are not published. See `files` in `package.json`.
 
 ## Release
 
@@ -35,6 +44,7 @@ Trunk-based. Bump `version` in `package.json`, push `main`.
 ```bash
 npm test
 npm run build
+npm run test:types
 ```
 
 ## Validate monorepo example
