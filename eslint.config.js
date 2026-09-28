@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/naming-convention */
 
 const eslint = require('@eslint/js')
+const { defineConfig } = require('eslint/config')
 const pluginStylistic = require('@stylistic/eslint-plugin')
 const pluginImport = require('eslint-plugin-import-x')
 const { createTypeScriptImportResolver } = require('eslint-import-resolver-typescript')
@@ -24,7 +25,7 @@ const DEFAULT_IGNORES = ['dist/**', 'test/**']
  * @param options.projectService - If true, use type-checked linting per file from nearest tsconfig (recommended for monorepos). When false/omitted, use a single tsconfig.
  * @param options.tsconfig - Path to tsconfig for type-aware linting. Ignored when projectService is true. If omitted, uses getTsConfigFile() (env vars supported).
  * @param options.structure - Optional folder structure enforcement. Requires eslint-plugin-project-structure. Use { workspaces: ['nextjs','aws/infra','shared'], appStructure: 'nextjs', appPath: 'nextjs' } for monorepos.
- * @returns Flat config array for use with ESLint.
+ * @returns {import('eslint').Linter.Config[]} Flat config array for use with ESLint.
  */
 function createConfig(options = {}) {
 	const {
@@ -120,7 +121,7 @@ function createConfig(options = {}) {
 		},
 	]
 
-	return tsEslint.config(...configBlocks)
+	return defineConfig(...configBlocks)
 }
 
 // One assignment: TypeScript 7 emits an invalid .d.ts for `module.exports.x =` after `module.exports =`.
