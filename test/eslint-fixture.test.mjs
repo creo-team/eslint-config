@@ -1,3 +1,4 @@
+import { readdirSync } from 'fs'
 import { createRequire } from 'module'
 import { describe, expect, it } from 'vitest'
 import path from 'path'
@@ -78,6 +79,16 @@ describe('eslint config', () => {
 		const fixturePath = path.resolve(__dirname, 'fixtures', 'good.ts')
 
 		expect(await lintUnignoredFiles(createSingleRepoEslint(), [fixturePath])).toEqual([])
+	})
+
+	it('lints top-level examples with no messages', async () => {
+		const examplesDir = path.resolve(__dirname, '..', 'examples')
+		const examples = readdirSync(examplesDir)
+			.filter((file) => /\.tsx?$/.test(file))
+			.map((file) => path.join(examplesDir, file))
+
+		expect(examples.length).toBeGreaterThan(0)
+		expect(await lintUnignoredFiles(createSingleRepoEslint(), examples)).toEqual([])
 	})
 
 	it('lints monorepo fixture with projectService and zero errors', async () => {

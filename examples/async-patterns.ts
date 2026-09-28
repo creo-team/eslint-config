@@ -29,7 +29,7 @@ const timeoutMs = 1000
 export function withTimeout<T>(promise: Promise<T>): Promise<T> {
 	return Promise.race([
 		promise,
-		new Promise<never>((_resolve, reject) => {
+		new Promise<never>((resolve, reject) => {
 			setTimeout(() => {
 				reject(new Error('timeout'))
 			}, timeoutMs)
