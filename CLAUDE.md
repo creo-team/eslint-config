@@ -69,11 +69,12 @@ Prettier handles ALL formatting via `prettier/prettier: error`. The `@stylistic/
 |------|---------|
 | [rules.js](rules.js) | All rule groups; exports `rules`, `jsDoc`, `prettier`, etc. |
 | [utils.js](utils.js) | `getTsConfigFile()`, `debug()`; used by eslint.config.js |
-| [eslint.config.js](eslint.config.js) | Exports default and `createConfig`; flat config; no project-structure |
+| [eslint.config.js](eslint.config.js) | Exports default and `createConfig` in one `module.exports` assignment; flat config; no project-structure |
+| [index.mjs](index.mjs) | ESM entry (`exports` `import` condition); re-exports default and named `createConfig` |
 | [constants.js](constants.js) | Severity levels, naming convention presets |
 | [structure.js](structure.js) | Optional project-structure enforcement |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Setup, lint/fix/build/test, release, OIDC, MCP |
-| [test/](test/) | Vitest unit tests (utils), ESLint fixture test |
+| [test/](test/) | Vitest unit tests (utils, entry points), ESLint fixture test; [test/types/](test/types/) type-checks consumer usage against `dist/` |
 | [examples/monorepo/](examples/monorepo/) | Monorepo example (root config, projectService) |
 | [docs/](docs/) | ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS |
 
@@ -83,9 +84,9 @@ Config defines `languageOptions.globals`: `console`, `module`, `process`, `requi
 
 ## Package Update Policy
 
-- `eslint` and `@eslint/js` are rejected from auto-upgrade (`upgrade:all` script) — `typescript-eslint@8` doesn't support ESLint 10 yet
-- `eslint-plugin-import` stays at v2 — `eslint-plugin-import-x` migration planned for next major
-- `eslint-plugin-perfectionist` stays at v4 — v5 upgrade planned with ESLint 10 migration
+- **TypeScript 6 API, TypeScript 7 compiler.** `typescript` is `npm:@typescript/typescript6` because typescript-eslint needs the TS 6 API, and it ships to consumers as a dependency. `@typescript/native` (`npm:typescript@^7`) provides `tsc`. Keep `typescript` on 6.x until typescript-eslint's peer range accepts 7 ([typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)). `upgrade:all` respects both aliases
+- **Declarations are public API.** TS 7 emits JS declarations differently: keep `eslint.config.js` to one `module.exports` assignment and keep the `const` assertions in `constants.js`. Run `npm run test:types` after any export or build change
+- **Node floor follows dependencies.** `engines.node` is the intersection of dependency engines. eslint-plugin-jsdoc 64 sets it today
 
 ## Verification
 
@@ -94,6 +95,7 @@ From repo root:
 ```bash
 npm test
 npm run build
+npm run test:types
 ```
 
-Tests run Vitest then lint; build compiles TypeScript to `dist/`.
+Tests run Vitest then lint; build compiles to `dist/` with TypeScript 7; `test:types` type-checks consumer usage against the built declarations.

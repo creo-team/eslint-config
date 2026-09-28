@@ -11,7 +11,7 @@ ESLint flat config for TypeScript/React: strict type-checking, Prettier, JSDoc, 
 npm install @creo-team/eslint-config --save-dev
 ```
 
-**Node:** Supports Node 20–24. Prefer Node 24 for best compatibility.
+**Node:** `^22.22.2 || >=24.15.0`. Prefer Node 24. **TypeScript 7** works alongside this config; see [TypeScript](#typescript).
 
 ## Usage patterns
 
@@ -46,6 +46,8 @@ module.exports = createConfig({
 })
 ```
 
+In ESM (`eslint.config.mjs`), use `import { createConfig } from '@creo-team/eslint-config'`.
+
 ### 3. Monorepo — one root config (recommended)
 
 Multiple packages (e.g. `app/`, `lib/`, `infra/`), each with its own `tsconfig.json`. Use **projectService** so type-aware rules resolve the nearest tsconfig per file. One `eslint.config.js` at the repo root; run `eslint .` from the root.
@@ -79,8 +81,8 @@ module.exports = createConfig({
     "fix": "eslint . --fix"
   },
   "devDependencies": {
-    "@creo-team/eslint-config": "^3.0.0",
-    "eslint": "^9.39.4"
+    "@creo-team/eslint-config": "^5.0.0",
+    "eslint": "^10.11.0"
   }
 }
 ```
@@ -114,6 +116,17 @@ In any setup, add to the package that runs ESLint:
 ### TypeScript
 
 Type-aware rules need a `tsconfig.json` (or `tsconfig.eslint.json`) that includes your source. With **projectService** (monorepo), each file uses the nearest tsconfig. Without it, one tsconfig is used (see [typed linting](https://typescript-eslint.io/getting-started/typed-linting)).
+
+**TypeScript 7.** TypeScript 7 ships no JavaScript API yet, so typescript-eslint runs on the TypeScript 6 API ([typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)). This config depends on it, so a monorepo with TypeScript 7 only inside its workspaces lints as-is. If the package that runs ESLint installs `typescript@7` itself, lint crashes. Use the [official side-by-side setup](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0) instead: `tsc` stays TypeScript 7 and `tsc6` is TypeScript 6.
+
+```json
+{
+  "devDependencies": {
+    "@typescript/native": "npm:typescript@^7.0.2",
+    "typescript": "npm:@typescript/typescript6@^6.0.2"
+  }
+}
+```
 
 ### Extending
 

@@ -42,7 +42,8 @@ Instructions for AI coding agents (Claude Code, Cursor, Copilot, etc.) working i
 |------|---------|
 | `rules.js` | Rule groups: commonjsPreventRules, prettier, jsDoc, stylisticTs, tsEslint; merged into `rules`; includes complexity, no-magic-numbers, async correctness, no-console |
 | `utils.js` | Helpers: `debug()`, `getTsConfigFile()`; Node globals via config |
-| `eslint.config.js` | Exports default `createConfig()` and `createConfig`; no project-structure plugin |
+| `eslint.config.js` | Exports default `createConfig()` and `createConfig` in one `module.exports` assignment; no project-structure plugin |
+| `index.mjs` | ESM entry; re-exports default and named `createConfig` |
 | `constants.js` | Severity levels, naming convention presets |
 | `examples/monorepo/` | Monorepo example (root config, projectService); run `npm install && npm run lint` to validate |
 | `docs/` | ESLINT-AUDIT, ESLINT-STANDARDS, AI-CODE-STANDARDS |
@@ -54,6 +55,7 @@ Before considering work done:
 ```bash
 npm test
 npm run build
+npm run test:types
 ```
 
-From repo root. Tests run Vitest then lint; build compiles to `dist/`.
+From repo root. Tests run Vitest then lint; build compiles to `dist/`; `test:types` type-checks consumer usage against it.
