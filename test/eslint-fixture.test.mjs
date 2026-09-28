@@ -30,6 +30,22 @@ function createTestEslint(cwd, extraIgnores = []) {
 }
 
 /**
+ * Creates an ESLint instance using this repo's config with one tsconfig, as a single-repo consumer would.
+ *
+ * @returns ESLint instance rooted at the repo, with nothing but node_modules and dist ignored.
+ */
+function createSingleRepoEslint() {
+	const repoRoot = path.resolve(__dirname, '..')
+	const { createConfig } = require(path.join(repoRoot, 'eslint.config.js'))
+
+	return new ESLint({
+		cwd: repoRoot,
+		overrideConfig: createConfig({ ignores: ['**/node_modules/**', '**/dist/**'] }),
+		overrideConfigFile: true,
+	})
+}
+
+/**
  * Lints a file and returns all messages (errors + warnings).
  *
  * @param eslint - ESLint instance.
@@ -42,14 +58,26 @@ async function lintFile(eslint, filePath) {
 	return results.flatMap((r) => r.messages)
 }
 
+/**
+ * Lints files after checking none is ignored, so an empty result proves they were really linted.
+ *
+ * @param eslint - ESLint instance.
+ * @param filePaths - Files to lint.
+ * @returns Array of lint messages.
+ */
+async function lintUnignoredFiles(eslint, filePaths) {
+	const ignored = await Promise.all(filePaths.map((filePath) => eslint.isPathIgnored(filePath)))
+	expect(filePaths.filter((_, index) => ignored[index])).toEqual([])
+	const results = await eslint.lintFiles(filePaths)
+
+	return results.flatMap((r) => r.messages)
+}
+
 describe('eslint config', () => {
-	it('lints single-repo fixture with zero errors', async () => {
-		const root = path.resolve(__dirname, '..')
-		const eslint = new ESLint({ cwd: root })
-		const fixturePath = path.join(root, 'test', 'fixtures', 'good.ts')
-		const results = await eslint.lintFiles([fixturePath])
-		const errors = results.flatMap((r) => r.messages.filter((m) => m.severity === 2))
-		expect(errors).toHaveLength(0)
+	it('lints single-repo fixture with no messages', async () => {
+		const fixturePath = path.resolve(__dirname, 'fixtures', 'good.ts')
+
+		expect(await lintUnignoredFiles(createSingleRepoEslint(), [fixturePath])).toEqual([])
 	})
 
 	it('lints monorepo fixture with projectService and zero errors', async () => {
