@@ -123,5 +123,6 @@ function createConfig(options = {}) {
 	return tsEslint.config(...configBlocks)
 }
 
-module.exports = createConfig({ ignores: ['dist/**', 'test/**', 'examples/**'] })
-module.exports.createConfig = createConfig
+// One assignment: TypeScript 7 emits an invalid .d.ts for `module.exports.x =` after `module.exports =`.
+// The ESM named export of createConfig lives in index.mjs.
+module.exports = Object.assign(createConfig({ ignores: ['dist/**', 'test/**', 'examples/**'] }), { createConfig })
