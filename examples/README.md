@@ -42,7 +42,7 @@ See [rule-overrides/README.md](./rule-overrides/README.md).
 - `beekeeper.tsx` — React component
 - `async-patterns.ts` — correct async/Promise patterns (v3.0.0: `Promise.all` instead of await-in-loop, proper Promise constructors, no console)
 
-These are linted by the main config when running `npm run lint` from the repo root.
+`npm test` lints these and requires zero messages (see `test/eslint-fixture.test.mjs`). The root `npm run lint` ignores `examples/`.
 
 ## Violation fixtures
 
