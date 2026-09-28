@@ -5,5 +5,6 @@
  */
 export function greet(): string {
 	const message = 'hello'
+
 	return message
 }
