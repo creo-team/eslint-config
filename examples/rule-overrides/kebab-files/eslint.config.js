@@ -4,7 +4,7 @@
  */
 const { createConfig } = require('@creo-team/eslint-config')
 const { error, FilenameCase, FilesPattern } = require('@creo-team/eslint-config/constants')
-const unicorn = require('eslint-plugin-unicorn')
+const { default: unicorn } = require('eslint-plugin-unicorn') // ESM-only; require(esm) returns the module namespace
 
 const base = createConfig({ ignores: ['node_modules/**', 'eslint.config.js'] })
 
