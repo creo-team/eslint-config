@@ -170,7 +170,7 @@ Install [eslint-plugin-unicorn](https://github.com/sindresorhus/eslint-plugin-un
 ```javascript
 const { createConfig } = require('@creo-team/eslint-config')
 const { error, FilenameCase, FilesPattern } = require('@creo-team/eslint-config/constants')
-const unicorn = require('eslint-plugin-unicorn')
+const { default: unicorn } = require('eslint-plugin-unicorn') // ESM-only; require(esm) returns the module namespace
 
 const base = createConfig()
 
