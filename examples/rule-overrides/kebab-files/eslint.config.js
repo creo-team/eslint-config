@@ -6,7 +6,7 @@ const { createConfig } = require('@creo-team/eslint-config')
 const { error, FilenameCase, FilesPattern } = require('@creo-team/eslint-config/constants')
 const unicorn = require('eslint-plugin-unicorn')
 
-const base = createConfig({ ignores: ['node_modules/**'] })
+const base = createConfig({ ignores: ['node_modules/**', 'eslint.config.js'] })
 
 module.exports = [
   ...base,
