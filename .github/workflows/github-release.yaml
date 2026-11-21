@@ -19,12 +19,12 @@ jobs:
   release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
         with:
           fetch-depth: 0
 
       - id: release
-        uses: creo-team/action-release@v1
+        uses: creo-team/action-release@3d7b7193e1d1c6dfff42e66232f5336c93beb129 # v1
         with:
           token: ${{ secrets.GH_TOKEN_RELEASES }}
           version-source: package-json
