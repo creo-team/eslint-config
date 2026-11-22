@@ -33,5 +33,5 @@ jobs:
           cache: 'npm'
 
       - run: |
-          npm ci --ignore-scripts
+          npm ci --ignore-scripts --no-audit
       - run: npm publish --provenance --access public
