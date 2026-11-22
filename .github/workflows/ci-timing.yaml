@@ -41,5 +41,8 @@ jobs:
             grep -E 'http fetch (POST|GET [0-9]+ https://registry.npmjs.org/-/npm)' "/tmp/$label.log" | sed -E 's/^npm http //' | cut -c1-140
           }
           exact E-exact-ci-command
+          echo "--- E: registry GETs that are NOT tarballs (packuments), with duration:"
+          grep -E 'http fetch GET [0-9]+ https://registry.npmjs.org/' /tmp/E-exact-ci-command.log | grep -v '/-/' | sed -E 's/^npm http fetch GET [0-9]+ https:\/\/registry.npmjs.org\///' | sort -t' ' -k2 | cut -c1-120
+          echo "packument count in E: $(grep -E 'http fetch GET [0-9]+ https://registry.npmjs.org/' /tmp/E-exact-ci-command.log | grep -vc '/-/')"
           exact F-exact-plus-no-audit --no-audit
-          exact G-exact-plus-no-fund --no-fund
+          echo "packument count in F: $(grep -E 'http fetch GET [0-9]+ https://registry.npmjs.org/' /tmp/F-exact-plus-no-audit.log | grep -vc '/-/')"
