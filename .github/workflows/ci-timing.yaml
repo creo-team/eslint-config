@@ -31,9 +31,15 @@ jobs:
             tarballs=$(grep ' http fetch GET ' "/tmp/$label.log" | grep -c '/-/' || true)
             printf '%-34s %6.1fs  GETs=%s tarballs=%s packuments=%s\n' "$label" "$(echo "$end - $start" | bc)" "$total" "$tarballs" "$((total - tarballs))"
           }
-          run A-committed-cooldown7 --ignore-scripts
-          run B-cooldown-disabled --ignore-scripts --min-release-age=0
-          run C-no-ignore-scripts
-          run D-committed-again --ignore-scripts
-          echo "--- slowest requests in A:"
-          grep ' http fetch GET ' /tmp/A-committed-cooldown7.log | sed -E 's/.* http fetch GET ([0-9]+) ([^ ]+) ([0-9]+)ms.*/\3ms \1 \2/' | sort -rn | head -5
+          exact() {
+            label="$1"; shift
+            rm -rf node_modules
+            start=$(date +%s.%N)
+            npm ci --ignore-scripts "$@" --loglevel=http > "/tmp/$label.log" 2>&1 || echo "FAILED $label"
+            end=$(date +%s.%N)
+            printf '%-34s %6.1fs\n' "$label" "$(echo "$end - $start" | bc)"
+            grep -E 'http fetch (POST|GET [0-9]+ https://registry.npmjs.org/-/npm)' "/tmp/$label.log" | sed -E 's/^npm http //' | cut -c1-140
+          }
+          exact E-exact-ci-command
+          exact F-exact-plus-no-audit --no-audit
+          exact G-exact-plus-no-fund --no-fund
