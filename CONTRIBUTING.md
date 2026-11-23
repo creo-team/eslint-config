@@ -8,7 +8,7 @@ npm install
 
 ## Commands
 
-- `npm run lint` — run ESLint
+- `npm run lint` — run ESLint; warnings fail it
 - `npm run fix` — auto-fix lint issues
 - `npm run build` — compile to `dist/`
 - `npm test` — run Vitest then lint
