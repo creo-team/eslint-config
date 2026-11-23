@@ -86,6 +86,7 @@ Config defines `languageOptions.globals`: `console`, `module`, `process`, `requi
 
 - **TypeScript 6 API, TypeScript 7 compiler.** `typescript` is `npm:@typescript/typescript6` because typescript-eslint needs the TS 6 API, and it ships to consumers as a dependency. `@typescript/native` (`npm:typescript@^7`) provides `tsc`. Keep `typescript` on 6.x until typescript-eslint's peer range accepts 7 ([typescript-eslint#10940](https://github.com/typescript-eslint/typescript-eslint/issues/10940)). `upgrade:all` respects both aliases
 - **Declarations are public API.** TS 7 emits JS declarations differently: keep `eslint.config.js` to one `module.exports` assignment and keep the `const` assertions in `constants.js`. Run `npm run test:types` after any export or build change
+- **`@types/node` tracks the Node floor, not latest.** It stays on the major of `engines.node`'s lowest version (22), so code cannot use APIs the floor lacks. [.ncurc.json](.ncurc.json) keeps `upgrade:all` from proposing a newer major; take 22.x updates with `npm update @types/node`
 - **Node floor follows dependencies.** `engines.node` is the intersection of dependency engines. eslint-plugin-jsdoc 64 sets it today
 
 ## Verification
