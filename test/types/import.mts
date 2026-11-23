@@ -14,3 +14,6 @@ export default defineConfig([
 		},
 	},
 ])
+
+// @ts-expect-error a mistyped option value must not compile
+createConfig({ projectService: 'yes' })

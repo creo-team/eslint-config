@@ -4,7 +4,7 @@ const { dirname, join } = require('path')
 /**
  * Logs messages to the console if ESLINT_DEBUG environment variable is set.
  *
- * @param message - The debug message to log.
+ * @param {string} message - The debug message to log.
  */
 function debug(message) {
 	if (process.env.ESLINT_DEBUG) {
