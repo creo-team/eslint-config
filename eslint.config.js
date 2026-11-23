@@ -20,11 +20,11 @@ const DEFAULT_IGNORES = ['dist/**', 'test/**']
 /**
  * Creates the ESLint flat config. Call with no args for default behavior, or pass options to customize.
  *
- * @param options - Optional configuration.
- * @param options.ignores - Extra ignore patterns (merged with default `['dist/**', 'test/**']`). Pass a full array to replace.
- * @param options.projectService - If true, use type-checked linting per file from nearest tsconfig (recommended for monorepos). When false/omitted, use a single tsconfig.
- * @param options.tsconfig - Path to tsconfig for type-aware linting. Ignored when projectService is true. If omitted, uses getTsConfigFile() (env vars supported).
- * @param options.structure - Optional folder structure enforcement. Requires eslint-plugin-project-structure. Use { workspaces: ['nextjs','aws/infra','shared'], appStructure: 'nextjs', appPath: 'nextjs' } for monorepos.
+ * @param {object} [options] - Optional configuration.
+ * @param {readonly string[]} [options.ignores] - Extra ignore patterns (merged with default `['dist/**', 'test/**']`). Pass a full array to replace.
+ * @param {boolean} [options.projectService] - If true, use type-checked linting per file from nearest tsconfig (recommended for monorepos). When false/omitted, use a single tsconfig.
+ * @param {string} [options.tsconfig] - Path to tsconfig for type-aware linting. Ignored when projectService is true. If omitted, uses getTsConfigFile() (env vars supported).
+ * @param {{ appPath?: string, appStructure?: string | string[] | object, workspaces?: string[] } | null} [options.structure] - Optional folder structure enforcement. Requires eslint-plugin-project-structure. Use { workspaces: ['nextjs','aws/infra','shared'], appStructure: 'nextjs', appPath: 'nextjs' } for monorepos.
  * @returns {import('eslint').Linter.Config[]} Flat config array for use with ESLint.
  */
 function createConfig(options = {}) {

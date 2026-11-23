@@ -13,7 +13,7 @@ function createMonorepoStructure(workspaces) {
 
 /**
  * App structure presets for different project types.
- * @type {Record<string, object>}
+ * @type {Record<string, object | undefined>}
  */
 const appStructurePresets = {
 	express: {
