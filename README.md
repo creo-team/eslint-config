@@ -382,6 +382,8 @@ Import rule values and presets — no magic strings:
 
 ## Docs
 
+- [RULES.md](./docs/RULES.md) — every rule with severity and options, generated; [rules.json](./docs/rules.json) is the machine-readable form
+- [llms.txt](./llms.txt) — index for AI assistants
 - [ESLINT-STANDARDS.md](./docs/ESLINT-STANDARDS.md) — architecture and rule philosophy
 - [ESLINT-AUDIT.md](./docs/ESLINT-AUDIT.md) — v3.0.0 audit findings and decisions
 - [AI-CODE-STANDARDS.md](./docs/AI-CODE-STANDARDS.md) — guidelines for AI assistants

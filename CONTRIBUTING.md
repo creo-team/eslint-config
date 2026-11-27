@@ -14,6 +14,7 @@ npm install
 - `npm test` — run Vitest then lint
 - `npm run test:types` — type-check consumer usage against `dist/` (run after `build`)
 - `npm run typecheck` — TypeScript 7 check without emitting
+- `npm run docs:rules` — regenerate `docs/RULES.md` and `docs/rules.json` after changing any rule
 - `npm run test:watch` — Vitest watch mode
 
 ## TypeScript toolchain

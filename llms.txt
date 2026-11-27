@@ -1,0 +1,10 @@
+# @creo-team/eslint-config
+
+> Shared ESLint flat config for Creo TypeScript projects: strict type-checked typescript-eslint, Prettier, JSDoc, async correctness, complexity and import rules. Use `createConfig(options)` for ignores, tsconfig, projectService, and structure.
+
+- [README](README.md): install, usage, TypeScript 6/7 setup, options
+- [Rule catalog](docs/RULES.md): every rule with severity and options, generated from the resolved config
+- [rules.json](docs/rules.json): the same catalog, machine-readable
+- [Rule philosophy](docs/ESLINT-STANDARDS.md): why rules are errors, warnings, or off
+- [AI code standards](docs/AI-CODE-STANDARDS.md): what AI-written code should avoid
+- [Agent instructions](AGENTS.md): conventions for working in this repo

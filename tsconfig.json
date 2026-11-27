@@ -34,6 +34,7 @@
 		"dist",
 		"examples",
 		"test",
+		"scripts",
 		"vitest.config.js"
 	]
 }
